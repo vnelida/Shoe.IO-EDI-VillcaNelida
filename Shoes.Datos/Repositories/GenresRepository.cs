@@ -100,7 +100,25 @@ namespace Shoes.Datos.Repositories
 					query = query.OrderByDescending(g => g.GnereName);
 					break;
 			}
-			return query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+			return query.Skip((page-1) * pageSize).Take(pageSize).ToList();
+		}
+
+		public List<Shoe>? GetPlanta(Genre genre)
+		{
+			if (genre != null)
+			{
+				context.Entry(genre)
+					.Collection(b => b.Shoes)
+					.Query()
+					.Include(s => s.Brand)
+					.Include(s => s.ColorN)
+					.Include(s => s.Sport)
+					.Include(s => s.Genre)
+					.Load();
+				var shoes = genre.Shoes.ToList();
+				return shoes;
+			}
+			return null;
 		}
 	}
 }

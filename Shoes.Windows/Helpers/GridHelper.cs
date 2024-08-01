@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Color = Shoes.Entidades.Color;
+using Size = Shoes.Entidades.Size;
 
 namespace Shoes.Windows.Helpers
 {
@@ -65,20 +66,60 @@ namespace Shoes.Windows.Helpers
                     r.Cells[4].Value = shoe.Genre;
                     r.Cells[5].Value = shoe.Brand;
                     r.Cells[6].Value = shoe.Sport;
-                    break;
+					r.Cells[7].Value = shoe.CantidadDeTalles;
+					break;
             }
-            switch (item)
+			switch (item)
+			{
+				case Shoe shoe:
+					r.Cells[0].Value = shoe.Model;
+					r.Cells[1].Value = shoe.Description;
+					r.Cells[2].Value = shoe.Price;
+					r.Cells[3].Value = shoe.ColorN.ColorName;
+					r.Cells[4].Value = shoe.Genre.GnereName;
+					r.Cells[5].Value = shoe.Brand.BrandName;
+					r.Cells[6].Value = shoe.Sport.SportName;
+					break;
+			}
+			switch (item)
             {
-                case Color color:
-                    r.Cells[0].Value = color.ColorName;
-                    break;
+                case Size size:
+                   
+                    r.Cells[0].Value = size.SizeNumber;
+					break;
             }
-            r.Tag = item;
+			switch (item)
+			{
+				case SizeDetailDto shoeSizesD:
+                    r.Cells[0].Value = shoeSizesD.SizeN;
+                    r.Cells[1].Value = shoeSizesD.Quantity;
+					break;
+			}
+			switch (item)
+			{
+				case ShoeSize shoeSizes:
+					r.Cells[0].Value = shoeSizes.SizeN.SizeNumber;
+					r.Cells[1].Value = shoeSizes.QuantityInStock;
+					break;
+			}
+
+			r.Tag = item;
         }
 
         public static void AgregarFila(DataGridViewRow r, DataGridView dgv)
         {
             dgv.Rows.Add(r);
         }
-    }
+
+		public static void MostrarDatosEnGrilla<T>(List<T> lista, DataGridView dgvDatos) where T:class
+		{
+            LimpiarGrilla(dgvDatos);
+            foreach (T t in lista)
+            {
+                var r = ConstruirFila(dgvDatos);
+                SetearFila(r, t);
+                AgregarFila(r, dgvDatos);
+            }
+		}
+	}
 }

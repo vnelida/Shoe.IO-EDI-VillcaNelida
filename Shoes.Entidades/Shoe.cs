@@ -22,6 +22,8 @@ namespace Shoes.Entidades
         public int ColorId { get; set; }
         public Color? ColorN { get; set; }
 
+		public ICollection<ShoeSize> ShoesSizes { get; set; } = new List<ShoeSize>();
 
-    }
+
+	}
 }

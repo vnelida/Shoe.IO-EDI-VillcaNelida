@@ -150,6 +150,49 @@ namespace Shoes.Datos.Migrations
                     b.ToTable("Shoes");
                 });
 
+            modelBuilder.Entity("Shoes.Entidades.ShoeSize", b =>
+                {
+                    b.Property<int>("ShoeSizeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoeSizeId"));
+
+                    b.Property<int>("QuantityInStock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoeSizeId");
+
+                    b.HasIndex("SizeId");
+
+                    b.HasIndex("ShoeId", "SizeId")
+                        .IsUnique();
+
+                    b.ToTable("ShoeSizes");
+                });
+
+            modelBuilder.Entity("Shoes.Entidades.Size", b =>
+                {
+                    b.Property<int>("SizeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SizeId"));
+
+                    b.Property<decimal>("SizeNumber")
+                        .HasColumnType("decimal(3,1)");
+
+                    b.HasKey("SizeId");
+
+                    b.ToTable("Sizes");
+                });
+
             modelBuilder.Entity("Shoes.Entidades.Sport", b =>
                 {
                     b.Property<int>("SportiD")
@@ -173,25 +216,25 @@ namespace Shoes.Datos.Migrations
             modelBuilder.Entity("Shoes.Entidades.Shoe", b =>
                 {
                     b.HasOne("Shoes.Entidades.Brand", "Brand")
-                        .WithMany("Plntas")
+                        .WithMany("Shoes")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shoes.Entidades.Color", "ColorN")
-                        .WithMany("Plntas")
+                        .WithMany("Shoes")
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shoes.Entidades.Genre", "Genre")
-                        .WithMany("Plntas")
+                        .WithMany("Shoes")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shoes.Entidades.Sport", "Sport")
-                        .WithMany("Plntas")
+                        .WithMany("Shoes")
                         .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -205,24 +248,53 @@ namespace Shoes.Datos.Migrations
                     b.Navigation("Sport");
                 });
 
+            modelBuilder.Entity("Shoes.Entidades.ShoeSize", b =>
+                {
+                    b.HasOne("Shoes.Entidades.Shoe", "ShoeN")
+                        .WithMany("ShoesSizes")
+                        .HasForeignKey("ShoeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shoes.Entidades.Size", "SizeN")
+                        .WithMany("ShoesSizes")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShoeN");
+
+                    b.Navigation("SizeN");
+                });
+
             modelBuilder.Entity("Shoes.Entidades.Brand", b =>
                 {
-                    b.Navigation("Plntas");
+                    b.Navigation("Shoes");
                 });
 
             modelBuilder.Entity("Shoes.Entidades.Color", b =>
                 {
-                    b.Navigation("Plntas");
+                    b.Navigation("Shoes");
                 });
 
             modelBuilder.Entity("Shoes.Entidades.Genre", b =>
                 {
-                    b.Navigation("Plntas");
+                    b.Navigation("Shoes");
+                });
+
+            modelBuilder.Entity("Shoes.Entidades.Shoe", b =>
+                {
+                    b.Navigation("ShoesSizes");
+                });
+
+            modelBuilder.Entity("Shoes.Entidades.Size", b =>
+                {
+                    b.Navigation("ShoesSizes");
                 });
 
             modelBuilder.Entity("Shoes.Entidades.Sport", b =>
                 {
-                    b.Navigation("Plntas");
+                    b.Navigation("Shoes");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,8 +19,10 @@ namespace Shoes.IOC
             servicio.AddScoped<ISportsService, SportsService>();
             servicio.AddScoped<IBrandsService, BrandsService>();
             servicio.AddScoped<IShoesService, ShoesService>();
+			servicio.AddScoped<ISizeService, SizeService>();
 
-            servicio.AddScoped<IShoesRepository, ShoesRepository>();
+			servicio.AddScoped<ISizeRepository, SizeRepository>();
+			servicio.AddScoped<IShoesRepository, ShoesRepository>();
             servicio.AddScoped<IColorsRepository, ColorsRepository>();
             servicio.AddScoped<IGenresRepository, GenresRepository>();
             servicio.AddScoped<ISportsRepository, SportsRepository>();

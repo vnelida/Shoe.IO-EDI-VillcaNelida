@@ -117,5 +117,9 @@ namespace Shoes.Servicios.Servicios
 			return repository.GetListaPaginada(page, pageSize, orden);
 		}
 
+		public List<Shoe>? GetShoes(Genre genre)
+		{
+			return repository.GetPlanta(genre);
+		}
 	}
 }

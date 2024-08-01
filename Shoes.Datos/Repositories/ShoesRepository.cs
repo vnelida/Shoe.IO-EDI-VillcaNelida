@@ -3,6 +3,7 @@ using Shoes.Datos.Interfaces;
 using Shoes.Entidades;
 using Shoes.Entidades.Dto;
 using Shoes.Entidades.Enums;
+using System.Numerics;
 
 namespace Shoes.Datos.Repositories
 {
@@ -50,6 +51,38 @@ namespace Shoes.Datos.Repositories
 			context.Shoes.Add(shoe);
 		}
 
+		public void AgregarSizeAShoe(Shoe shoe, List<Size> sizes)
+		{
+			foreach (var size in sizes)
+			{
+				var sizeExistente = context.Sizes.FirstOrDefault(s => s.SizeId == size.SizeId);
+
+				if (sizeExistente == null)
+				{
+					context.Sizes.Add(size);
+					sizeExistente = size;
+				}
+				else
+				{
+					context.Sizes.Attach(sizeExistente);
+
+					if (!ExisteRelacion(shoe, sizeExistente))
+					{
+						context.ShoeSizes.Add(new ShoeSize
+						{
+							ShoeId = shoe.ShoeId,
+							SizeId = sizeExistente.SizeId
+						});
+					}
+				}
+
+			}
+		}
+		public void AgregarShoeSize(ShoeSize nuevaRelacion)
+		{
+			context.Set<ShoeSize>().Add(nuevaRelacion);
+		}
+
 		public void Borrar(Shoe shoe)
 		{
 			context.Shoes.Remove(shoe);
@@ -95,6 +128,11 @@ namespace Shoes.Datos.Repositories
 			context.Shoes.Update(shoe);
 		}
 
+		public void Editar(Shoe shoe, int? sizeId = null)
+		{
+			context.Shoes.Update(shoe);
+		}
+
 		public bool Existe(Shoe shoe)
 		{
 
@@ -118,6 +156,17 @@ namespace Shoes.Datos.Repositories
 				p.GenreId == shoe.GenreId &&
 				p.ShoeId != shoe.ShoeId);
 
+		}
+
+		public bool ExisteRelacion(Shoe shoe, Size size)
+		{
+			if (shoe == null || size == null) return false;
+
+			var existeRelacion=context.Shoes.Include(ss=>ss.ShoesSizes)
+											.ThenInclude(ss=>ss.SizeN)
+											.Any(s=>s.ShoeId== shoe.ShoeId && s.ShoesSizes.Any(ss=>ss.SizeId==size.SizeId));
+			
+			return existeRelacion;
 		}
 
 		public int GetCantidad(Func<Shoe, bool>? filtro)
@@ -169,6 +218,7 @@ namespace Shoes.Datos.Repositories
 				.Include(p => p.ColorN)
 				.Include(p => p.Genre)
 				.Include(p => p.Sport)
+				.Include(p=>p.ShoesSizes)
 				.AsNoTracking();
 
 			if (brandFiltro != null)
@@ -236,7 +286,9 @@ namespace Shoes.Datos.Repositories
 					Brand = p.Brand?.BrandName,
 					ColorN = p.ColorN?.ColorName,
 					Genre = p.Genre.GnereName,
-					Sport = p.Sport.SportName
+					Sport = p.Sport.SportName,
+					CantidadDeTalles=p.ShoesSizes.Count(),
+					
 				})
 				.ToList();
 
@@ -252,5 +304,79 @@ namespace Shoes.Datos.Repositories
 				.FirstOrDefault(s => s.ShoeId == shoeId);
 		}
 
+		public List<ShoeListDto> GetShoesSinTallle()
+		{
+			return context.Shoes.
+				Include(s => s.ColorN)
+				.Include(s => s.Genre)
+				.Include(s => s.Sport)
+				.Include(s => s.Brand)
+				.Where (s =>!s.ShoesSizes.Any())
+				.Select(s => new ShoeListDto
+				{
+					ShoeId = s.ShoeId,
+					Model = s.Model,
+					Description = s.Description,
+					Genre = s.Genre != null ? s.Genre.GnereName : string.Empty,
+					ColorN = s.ColorN != null ? s.ColorN.ColorName : string.Empty,
+					Sport = s.Sport != null ? s.Sport.SportName : string.Empty,
+					Brand = s.Brand != null ? s.Brand.BrandName : string.Empty,
+					Price = s.Price
+				}).ToList();
+		}
+
+		public List<Size>? GetSizePorShoes(int shoeId)
+		{
+			return context.ShoeSizes.Include(ss => ss.SizeN)
+				.Where(ss => ss.ShoeId == shoeId)
+				.Select(ss => ss.SizeN).ToList();
+		}
+
+
+		public List<SizeDetailDto>? GetSizeDetail(int shoeId)
+		{
+			return context.ShoeSizes.Include(ss => ss.SizeN)
+			.Where(ss => ss.ShoeId == shoeId)
+			.Select(ss => new SizeDetailDto
+			{
+				SizeN = ss.SizeN.SizeNumber,
+				Quantity = ss.QuantityInStock
+			}).ToList();
+		}
+
+
+		public void EliminarRelacion(Shoe shoe)
+		{
+			var relacionesPasadas = context.ShoeSizes.Where(ss => ss.ShoeId == shoe.ShoeId).ToList();
+			context.ShoeSizes.RemoveRange(relacionesPasadas);
+		}
+
+		public IEnumerable<IGrouping<int, Shoe>> GetShoesXGenre()
+		{
+			return context.Shoes.GroupBy(s => s.GenreId).ToList();
+		}
+
+		public IEnumerable<IGrouping<int, Shoe>> GetShoesXMarca()
+		{
+			return context.Shoes.GroupBy(s => s.BrandId).ToList();
+		}
+
+
+		public void AgregarStock(int shoeId, int sizeId, int unidades)
+		{
+
+			var shoeSize = GetShoeSize(shoeId, sizeId);
+			if (shoeSize!=null)
+			{
+				shoeSize.QuantityInStock += 1;
+				context.ShoeSizes.Update(shoeSize);
+			}
+			
+		}
+
+		public ShoeSize GetShoeSize(int shoeId, int sizeId)
+		{
+			return context.ShoeSizes.FirstOrDefault(ss => ss.ShoeId == shoeId && ss.SizeId == sizeId);
+		}
 	}
 }

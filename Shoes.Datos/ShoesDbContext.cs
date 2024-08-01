@@ -18,6 +18,8 @@ namespace Shoes.Datos
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Shoe> Shoes { get; set; }
         public DbSet<Sport> Sports { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<ShoeSize> ShoeSizes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -67,6 +69,34 @@ namespace Shoes.Datos
             {
                 entity.HasIndex(s => s.SportName).IsUnique();
             });
-        }
+
+            modelBuilder.Entity<Size>(entity =>
+            {
+                entity.Property(s => s.SizeNumber).HasColumnType("decimal(3,1)");
+            });
+
+
+			modelBuilder.Entity<ShoeSize>()
+			.HasKey(ss => ss.ShoeSizeId);
+
+			modelBuilder.Entity<ShoeSize>()
+				.HasIndex(ss => new { ss.ShoeId, ss.SizeId })  
+				.IsUnique();
+
+			modelBuilder.Entity<ShoeSize>()
+				.HasOne(ss => ss.ShoeN)
+				.WithMany(s => s.ShoesSizes)
+				.HasForeignKey(ss => ss.ShoeId);
+
+			modelBuilder.Entity<ShoeSize>()
+				.HasOne(ss => ss.SizeN)
+				.WithMany(s => s.ShoesSizes)
+				.HasForeignKey(ss => ss.SizeId);
+
+
+			
+
+
+		}
     }
 }

@@ -18,6 +18,7 @@ namespace Shoes.Servicios.Interface
         bool EstaRelacionado(Sport sport);
         Sport? GetSportPorNombre(string sportEdit);
 		int GetCantidad();
+		List<Shoe>? GetShoes(Sport sport);
 		List<Sport> GetListaOrdenada(Orden orden);
 		List<Sport> GetListaPaginada(int page, int pageSize, Orden? orden = Orden.AZ);
 	}

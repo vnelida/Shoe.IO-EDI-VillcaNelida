@@ -18,6 +18,7 @@ namespace Shoes.Servicios.Interface
         bool EstaRelacionado(Genre genre);
         Genre GetGenrePorNombre(string genreN);
 		int GetCantidad();
+		List<Shoe>? GetShoes(Genre genre);
 		List<Genre> GetListaOrdenada(Orden orden);
 		List<Genre> GetListaPaginada(int page, int pageSize, Orden? orden = Orden.AZ);
 	}

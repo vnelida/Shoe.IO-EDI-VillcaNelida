@@ -106,6 +106,12 @@ namespace Shoes.Servicios.Servicios
 		{
 			return _repository.GetListaPaginada(page, pageSize, orden);
 		}
+
+		public List<Shoe>? GetShoes(Color? colorEnDB)
+		{
+			return _repository.GetShoe(colorEnDB);
+		}
+
 		public void Guardar(Color color)
         {
             try

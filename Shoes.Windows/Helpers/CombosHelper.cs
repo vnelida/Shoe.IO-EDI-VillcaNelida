@@ -2,6 +2,7 @@
 using Shoes.Entidades;
 using Shoes.Servicios.Interface;
 using Color = Shoes.Entidades.Color;
+using Size = Shoes.Entidades.Size;
 
 namespace Shoes.Windows.Helpers
 {
@@ -186,5 +187,22 @@ namespace Shoes.Windows.Helpers
 			}
 		}
 
+		public static void CargarComboSizes(IServiceProvider serviceProvider, ref ComboBox cbo)
+		{
+			var servicio = serviceProvider.GetService<ISizeService>();
+
+			var lista = servicio?.GetLista();
+			var defaultSize = new Size
+			{
+				SizeId = 0,
+				SizeNumber = 0M
+			};
+			lista?.Insert(0, defaultSize);
+			cbo.DataSource = lista;
+			cbo.DisplayMember = "SizeNumber";
+			cbo.ValueMember = "SizeId";
+			cbo.SelectedIndex = 0;
+
+		}
 	}
 }

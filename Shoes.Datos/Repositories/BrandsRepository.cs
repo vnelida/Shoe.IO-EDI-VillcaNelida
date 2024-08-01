@@ -97,6 +97,23 @@ namespace Shoes.Datos.Repositories
 			return query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 		}
 
+		public List<Shoe>? GetShoe(Brand brand)
+		{
+			if (brand != null)
+			{
+				context.Entry(brand)
+					.Collection(b => b.Shoes)
+					.Query()
+					.Include(s => s.Brand)
+					.Include(s => s.ColorN)
+					.Include(s => s.Sport)
+					.Include(s => s.Genre)
+					.Load();
+				var shoes=brand.Shoes.ToList();
+				return shoes;
+			} return null;
+		}
+
 		public void Guardar(Brand brand)
 		{
 			context.Brands.Add(brand);

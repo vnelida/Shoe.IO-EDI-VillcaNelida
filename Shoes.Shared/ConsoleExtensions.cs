@@ -14,7 +14,7 @@ namespace Shoes.Shared
                 stringVar = Console.ReadLine();
                 if (stringVar == null)
                 {
-                    Console.WriteLine("Debe ingresar algo!!!");
+                    Console.WriteLine("Debe ingresar algo.");
                 }
                 else
                 {
@@ -36,7 +36,7 @@ namespace Shoes.Shared
                 }
                 else
                 {
-                    Console.WriteLine("Por favor, ingrese un número entero válido.");
+                    Console.WriteLine("Ingrese un número entero válido.");
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace Shoes.Shared
                 }
                 else
                 {
-                    Console.WriteLine("Por favor, ingrese un número decimal válido.");
+                    Console.WriteLine("Ingrese un número decimal válido.");
                 }
             }
         }
@@ -106,25 +106,39 @@ namespace Shoes.Shared
 
                     if (!options.Any(x => x.Equals(answer)))
                     {
-                        Console.WriteLine("Ingreso no valido. Intentelo nuevamente   ");
+                        Console.WriteLine("Ingreso no valido. Intentelo nuevamente. ");
                     }
                     else
                     {
-                        /*
-                         * Si la opción tipiada es alguna de la lista, salgo del ciclo
-                         */
                         break;
-
                     }
 
-                } while (!options.Any(x => x.Equals(answer)));// mientras no sea un caracter válido me quedo esperando
+                } while (!options.Any(x => x.Equals(answer)));
 
             }
-            return answer; //retorno el caracter ingresado y validado.
+            return answer; 
 
         }
 
-        public static int SelectFromList<T>(List<T> lista, int minValue, int maxValue) where T : class
+		public static string GetRespuestSiNo(string message)
+		{
+			string respuesta;
+			do
+			{
+				Console.Write(message);
+				respuesta = Console.ReadLine()?.Trim().ToUpper();
+
+				if (respuesta != "SI" && respuesta != "NO")
+				{
+					Console.WriteLine("Ingreso no válido. Inténtelo nuevamente.");
+				}
+			} while (respuesta != "SI" && respuesta != "NO");
+
+			return respuesta;
+
+		}
+
+		public static int SelectFromList<T>(List<T> lista, int minValue, int maxValue) where T : class
         {
             int seleccion = 0;
             Console.Write("Seleccione de la lista");
@@ -147,12 +161,12 @@ namespace Shoes.Shared
                     default:
                         throw new ArgumentException("Tipo no compatible.");
                 }
-                Console.WriteLine(); // Agregar una línea en blanco entre los elementos
+                Console.WriteLine(); 
             }
 
             seleccion = ReadInt("Selecciona una opción del listado:", minValue, maxValue);
 
-            return seleccion; // Devolver un valor por defecto
+            return seleccion; 
 
         }
         public static int ReadInt(string message, int min, int max)

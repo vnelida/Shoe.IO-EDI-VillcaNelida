@@ -91,6 +91,11 @@ namespace Shoes.Servicios.Servicios
 			return repository.GetListaPaginada(page, pageSize, orden);
 		}
 
+		public List<Shoe>? GetShoes(Brand brand)
+		{
+            return repository.GetShoe(brand);
+		}
+
 		public void Guardar(Brand brand)
         {
             try

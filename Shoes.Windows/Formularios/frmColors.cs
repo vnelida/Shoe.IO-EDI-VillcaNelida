@@ -20,9 +20,10 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly IColorsService servicio;
 		private List<Color>? lista;
+		private List<Shoe> listaShoes;
 		private Orden orden;
 		private int pageCount;
-		private int pageSize = 5;
+		private int pageSize = 13;
 		private int page = 1;
 		private int recordCount;
 		public frmColors(IColorsService _servicio)
@@ -244,6 +245,22 @@ namespace Shoes.Windows.Formularios
 		private void tsbActualizar_Click(object sender, EventArgs e)
 		{
 			RecargarGrilla();
+		}
+
+		private void tsbConsulta_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			Color color = (Color)r.Tag;
+			var colorEnDB = servicio.GetColorPorId(color.ColorId);
+			listaShoes = servicio.GetShoes(colorEnDB);
+
+			frmMostrarShoes frm = new frmMostrarShoes() { Text = $"{color.ColorName}" };
+			frm.SetLista(listaShoes);
+			frm.ShowDialog(this);
 		}
 	}
 }

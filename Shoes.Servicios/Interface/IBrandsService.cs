@@ -18,6 +18,7 @@ namespace Shoes.Servicios.Interface
         bool EstaRelacionado(Brand brand);
         Brand GetBrandPorNombre(string brandN);
 		int GetCantidad();
+        List <Shoe>? GetShoes(Brand brand);
 		List<Brand> GetListaOrdenada(Orden orden);
 		List<Brand> GetListaPaginada(int page, int pageSize, Orden? orden = Orden.AZ);
 

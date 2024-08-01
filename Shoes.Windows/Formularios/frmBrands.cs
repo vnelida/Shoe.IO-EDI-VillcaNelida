@@ -9,9 +9,10 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly IBrandsService service;
 		private List<Brand> lista;
+		private List<Shoe> listaShoes;
 		private Orden orden;
 		private int pageCount;
-		private int pageSize = 5;
+		private int pageSize = 13;
 		private int page = 1;
 		private int recordCount;
 		public frmBrands(IBrandsService _service)
@@ -55,125 +56,8 @@ namespace Shoes.Windows.Formularios
 			}
 		}
 
-		private void tsbNuevo_Click(object sender, EventArgs e)
-		{
-			frmBrandAE frm = new frmBrandAE() { Text = "Nueva marca" };
-			DialogResult dr = frm.ShowDialog(this);
-			if (dr == DialogResult.Cancel)
-			{
-				return;
-			}
 
-			Brand brand = frm.GetTipo();
-
-			if (!service.Existe(brand))
-			{
-				service.Guardar(brand);
-				var r = GridHelper.ConstruirFila(dgvDatos);
-				GridHelper.SetearFila(r, brand);
-				GridHelper.AgregarFila(r, dgvDatos);
-				MessageBox.Show("Registro agregado exitosamente");
-			}
-			else
-			{
-				MessageBox.Show("Registro duplicado.");
-			}
-		}
-
-		private void tsbEditar_Click(object sender, EventArgs e)
-		{
-			if (dgvDatos.SelectedRows.Count == 0)
-			{
-				return;
-			}
-			var r = dgvDatos.SelectedRows[0];
-			if (r.Tag == null) { return; }
-			Brand? brand = (Brand)r.Tag;
-			frmBrandAE frm = new frmBrandAE() { Text = "Editar marca" };
-			frm.SetTipo(brand);
-			DialogResult dr = frm.ShowDialog(this);
-			if (dr == DialogResult.Cancel)
-			{
-				return;
-			}
-			try
-			{
-				brand = frm.GetTipo();
-
-				if (!service.Existe(brand))
-				{
-					service.Guardar(brand);
-
-					GridHelper.SetearFila(r, brand);
-					MessageBox.Show("Registro editado exitosamente", "Informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-				else
-				{
-					MessageBox.Show("Registro duplicado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-				}
-
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-			}
-		}
-
-		private void tsbBorrar_Click(object sender, EventArgs e)
-		{
-			if (dgvDatos.SelectedRows.Count == 0)
-			{
-				return;
-			}
-			var r = dgvDatos.SelectedRows[0];
-			if (r.Tag is not null)
-			{
-				Brand brand = (Brand)r.Tag;
-				DialogResult dr = MessageBox.Show($"¿Desea borrar el registro ''{brand.BrandName}''?", "Confirmar operación", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-				if (dr == DialogResult.No)
-				{
-					return;
-				}
-				try
-				{
-
-
-					if (!service.EstaRelacionado(brand))
-					{
-						service.Borrar(brand);
-
-						GridHelper.QuitarFila(r, dgvDatos);
-						MessageBox.Show("Registro borrado.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					}
-					else
-					{
-						MessageBox.Show("Registro relacionado. Baja denegada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
-				catch (Exception ex)
-				{
-
-					MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-				}
-
-			}
-		}
-
-
-		private void aZToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			orden = Orden.AZ;
-			MostrarOrdenado(orden);
-		}
-
-		private void zAToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			orden = Orden.ZA;
-			MostrarOrdenado(orden);
-		}
+		
 
 		private void panelNavegacion_Paint(object sender, PaintEventArgs e)
 		{
@@ -221,10 +105,6 @@ namespace Shoes.Windows.Formularios
 			MostrarDatosEnGrilla();
 		}
 
-		private void tsbActualizar_Click(object sender, EventArgs e)
-		{
-			RecargarGrilla();
-		}
 
 		private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
@@ -234,6 +114,146 @@ namespace Shoes.Windows.Formularios
 		private void tsbCerrar_Click_1(object sender, EventArgs e)
 		{
 			Close();
+		}
+
+		private void tsbConsulta_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			Brand brand = (Brand)r.Tag;
+			var brandEnDB = service.GetBrandPorId(brand.BrandId);
+			listaShoes = service.GetShoes(brandEnDB);
+
+			frmMostrarShoes frm = new frmMostrarShoes() { Text=$"{brand.BrandName}" };
+			frm.SetLista(listaShoes);
+			frm.ShowDialog(this);
+		}
+
+		private void tsbNuevo_Click_1(object sender, EventArgs e)
+		{
+			frmBrandAE frm = new frmBrandAE() { Text = "Nueva marca" };
+			DialogResult dr = frm.ShowDialog(this);
+			if (dr == DialogResult.Cancel)
+			{
+				return;
+			}
+
+			Brand brand = frm.GetTipo();
+
+			if (!service.Existe(brand))
+			{
+				service.Guardar(brand);
+				var r = GridHelper.ConstruirFila(dgvDatos);
+				GridHelper.SetearFila(r, brand);
+				GridHelper.AgregarFila(r, dgvDatos);
+				MessageBox.Show("Registro agregado exitosamente");
+			}
+			else
+			{
+				MessageBox.Show("Registro duplicado.");
+			}
+		}
+
+		private void tsbBorrar_Click_1(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is not null)
+			{
+				Brand brand = (Brand)r.Tag;
+				DialogResult dr = MessageBox.Show($"¿Desea borrar el registro ''{brand.BrandName}''?", "Confirmar operación", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+				if (dr == DialogResult.No)
+				{
+					return;
+				}
+				try
+				{
+
+
+					if (!service.EstaRelacionado(brand))
+					{
+						service.Borrar(brand);
+
+						GridHelper.QuitarFila(r, dgvDatos);
+						MessageBox.Show("Registro borrado.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					else
+					{
+						MessageBox.Show("Registro relacionado. Baja denegada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+				catch (Exception ex)
+				{
+
+					MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				}
+
+			}
+		}
+
+		private void tsbEditar_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag == null) { return; }
+			Brand? brand = (Brand)r.Tag;
+			frmBrandAE frm = new frmBrandAE() { Text = "Editar marca" };
+			frm.SetTipo(brand);
+			DialogResult dr = frm.ShowDialog(this);
+			if (dr == DialogResult.Cancel)
+			{
+				return;
+			}
+			try
+			{
+				brand = frm.GetTipo();
+
+				if (!service.Existe(brand))
+				{
+					service.Guardar(brand);
+
+					GridHelper.SetearFila(r, brand);
+					MessageBox.Show("Registro editado exitosamente", "Informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else
+				{
+					MessageBox.Show("Registro duplicado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+			}
+		}
+
+		private void tsbActualizar_Click_1(object sender, EventArgs e)
+		{
+			RecargarGrilla();
+		}
+
+		private void aZToolStripMenuItem_Click_1(object sender, EventArgs e)
+		{
+			orden = Orden.AZ;
+			MostrarOrdenado(orden);
+		}
+
+		private void zAToolStripMenuItem_Click_1(object sender, EventArgs e)
+		{
+			orden = Orden.ZA;
+			MostrarOrdenado(orden);
 		}
 	}
 }

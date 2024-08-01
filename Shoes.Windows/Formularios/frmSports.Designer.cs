@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSports));
 			panelGrilla = new Panel();
 			dgvDatos = new DataGridView();
 			colSport = new DataGridViewTextBoxColumn();
@@ -77,13 +76,13 @@
 			// 
 			dgvDatos.AllowUserToAddRows = false;
 			dgvDatos.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+			dataGridViewCellStyle1.BackColor = Color.White;
 			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			dgvDatos.BackgroundColor = SystemColors.ButtonHighlight;
 			dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colSport });
 			dgvDatos.Dock = DockStyle.Fill;
-			dgvDatos.GridColor = SystemColors.HighlightText;
+			dgvDatos.GridColor = SystemColors.ControlLight;
 			dgvDatos.Location = new Point(0, 0);
 			dgvDatos.Margin = new Padding(6);
 			dgvDatos.MultiSelect = false;
@@ -127,7 +126,7 @@
 			// 
 			// tsbNuevo
 			// 
-			tsbNuevo.Image = Properties.Resources.agregar_documento;
+			tsbNuevo.Image = Properties.Resources.icons8_agregar_archivo_641;
 			tsbNuevo.ImageScaling = ToolStripItemImageScaling.None;
 			tsbNuevo.ImageTransparentColor = Color.Magenta;
 			tsbNuevo.Name = "tsbNuevo";
@@ -138,7 +137,7 @@
 			// 
 			// tsbBorrar
 			// 
-			tsbBorrar.Image = Properties.Resources.eliminar_documento;
+			tsbBorrar.Image = Properties.Resources.icons8_eliminar_archivo_64;
 			tsbBorrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbBorrar.ImageTransparentColor = Color.Magenta;
 			tsbBorrar.Name = "tsbBorrar";
@@ -149,7 +148,7 @@
 			// 
 			// tsbEditar
 			// 
-			tsbEditar.Image = Properties.Resources.archivo_de_edicion;
+			tsbEditar.Image = Properties.Resources.icons8_editar_archivo_64;
 			tsbEditar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbEditar.ImageTransparentColor = Color.Magenta;
 			tsbEditar.Name = "tsbEditar";
@@ -165,18 +164,19 @@
 			// 
 			// tsbConsulta
 			// 
-			tsbConsulta.Image = (Image)resources.GetObject("tsbConsulta.Image");
+			tsbConsulta.Image = Properties.Resources.icons8_letra_pequeña_641;
 			tsbConsulta.ImageScaling = ToolStripItemImageScaling.None;
 			tsbConsulta.ImageTransparentColor = Color.Magenta;
 			tsbConsulta.Name = "tsbConsulta";
 			tsbConsulta.Size = new Size(148, 113);
 			tsbConsulta.Text = "Consulta";
 			tsbConsulta.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbConsulta.Click += tsbConsulta_Click;
 			// 
 			// tsbOrden
 			// 
 			tsbOrden.DropDownItems.AddRange(new ToolStripItem[] { aZToolStripMenuItem, zAToolStripMenuItem });
-			tsbOrden.Image = (Image)resources.GetObject("tsbOrden.Image");
+			tsbOrden.Image = Properties.Resources.icons8_clasificación_descendente_64;
 			tsbOrden.ImageScaling = ToolStripItemImageScaling.None;
 			tsbOrden.ImageTransparentColor = Color.Magenta;
 			tsbOrden.Name = "tsbOrden";
@@ -188,20 +188,20 @@
 			// aZToolStripMenuItem
 			// 
 			aZToolStripMenuItem.Name = "aZToolStripMenuItem";
-			aZToolStripMenuItem.Size = new Size(359, 54);
+			aZToolStripMenuItem.Size = new Size(211, 54);
 			aZToolStripMenuItem.Text = "A-Z";
 			aZToolStripMenuItem.Click += aZToolStripMenuItem_Click_1;
 			// 
 			// zAToolStripMenuItem
 			// 
 			zAToolStripMenuItem.Name = "zAToolStripMenuItem";
-			zAToolStripMenuItem.Size = new Size(359, 54);
+			zAToolStripMenuItem.Size = new Size(211, 54);
 			zAToolStripMenuItem.Text = "Z-A";
 			zAToolStripMenuItem.Click += zAToolStripMenuItem_Click_1;
 			// 
 			// tsbActualizar
 			// 
-			tsbActualizar.Image = Properties.Resources.girar_cuadrado;
+			tsbActualizar.Image = Properties.Resources.icons8_renovar_suscripción_64;
 			tsbActualizar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbActualizar.ImageTransparentColor = Color.Magenta;
 			tsbActualizar.Name = "tsbActualizar";
@@ -222,7 +222,8 @@
 			// 
 			// tsbCerrar
 			// 
-			tsbCerrar.Image = Properties.Resources.salida;
+			tsbCerrar.Alignment = ToolStripItemAlignment.Right;
+			tsbCerrar.Image = Properties.Resources.icons8_volver_64;
 			tsbCerrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbCerrar.ImageTransparentColor = Color.Magenta;
 			tsbCerrar.Name = "tsbCerrar";

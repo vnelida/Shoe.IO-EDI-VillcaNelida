@@ -15,6 +15,7 @@ namespace Shoes.Datos.Interfaces
 		List<Brand> GetLista();
 		List<Brand> GetListaOrdenada(Orden orden);
 		List<Brand> GetListaPaginada(int page, int pageSize, Orden? orden = Orden.AZ);
+		List<Shoe>? GetShoe(Brand brand);
 		void Guardar(Brand brand);
 	}
 }

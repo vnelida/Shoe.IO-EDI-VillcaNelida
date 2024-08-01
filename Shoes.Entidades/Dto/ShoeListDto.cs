@@ -23,5 +23,6 @@ namespace Shoes.Entidades.Dto
         public string Sport = null!;
 
         public string ColorN = null!;
+        public int CantidadDeTalles { get; set; }
     }
 }

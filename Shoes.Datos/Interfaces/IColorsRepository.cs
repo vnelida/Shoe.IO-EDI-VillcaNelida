@@ -16,5 +16,6 @@ namespace Shoes.Datos.Interfaces
 		List<Color> GetListaPaginada(int page, int pageSize, Orden? orden);
 		List<Color> GetListaOrdenada(Orden orden);
 		int GetCantidad();
+		List<Shoe>? GetShoe(Color? colorEnDB);
 	}
 }

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = Shoes.Entidades.Color;
+using Size = Shoes.Entidades.Size;
 
 namespace Shoes.Windows.Formularios
 {
@@ -20,11 +21,14 @@ namespace Shoes.Windows.Formularios
 	{
 		private IServiceProvider serviceProvider;
 
-		private Shoe? shoe;
+		
 		private Brand? brand;
 		private Genre? genre;
 		private Sport? sport;
 		private Color? color;
+
+		private (Shoe? shoe, List<Size>? sizes) s;
+
 		public frmShoesAE(IServiceProvider _serviceProvider)
 		{
 			InitializeComponent();
@@ -38,30 +42,47 @@ namespace Shoes.Windows.Formularios
 			CombosHelper.CargarComboColors(serviceProvider, ref cboColors);
 			CombosHelper.CargarComboGenre(serviceProvider, ref cboGenres);
 			CombosHelper.CargarComboSport(serviceProvider, ref cboSports);
-			if (shoe != null)
+			ListBoxHelper.CargarDatosListBoxSizes(serviceProvider, ref clstTalles);
+			
+			if (s.shoe != null)
 			{
-				txtModel.Text = shoe.Model;
-				txtDescripcion.Text = shoe.Description;
-				txtPrecio.Text = shoe.Price.ToString();
-				cboSports.SelectedValue = shoe.SportId;
-				cboGenres.SelectedValue = shoe.GenreId;
-				cboColors.SelectedValue = shoe.ColorId;
-				cboBrands.SelectedValue = shoe.BrandId;
+				txtModel.Text = s.shoe.Model;
+				txtDescripcion.Text = s.shoe.Description;
+				txtPrecio.Text = s.shoe.Price.ToString();
+				cboSports.SelectedValue = s.shoe.SportId;
+				cboGenres.SelectedValue = s.shoe.GenreId;
+				cboColors.SelectedValue = s.shoe.ColorId;
+				cboBrands.SelectedValue = s.shoe.BrandId;
 
-				sport = shoe.Sport;
-				color = shoe.ColorN;
-				genre = shoe.Genre;
-				brand = shoe.Brand;
+				sport = s.shoe.Sport;
+				color = s.shoe.ColorN;
+				genre = s.shoe.Genre;
+				brand = s.shoe.Brand;
+
+			}
+
+			if (s.sizes != null && s.sizes.Any())
+			{
+				for (int i = 0; i < clstTalles.Items.Count; i++)
+				{
+					var itemTalle = clstTalles.Items[i] as Size;
+
+					if (itemTalle != null)
+					{
+						if (s.sizes
+							.Any(s => s.SizeId == itemTalle.SizeId))
+						{
+							clstTalles.SetItemChecked(i, true);
+						}
+						else
+						{
+							clstTalles.SetItemChecked(i, false);
+						}
+					}
+				}
 			}
 		}
-		public Shoe GetTipo()
-		{
-			return shoe;
-		}
-		public void SetTipo(Shoe? shoe)
-		{
-			this.shoe = shoe;
-		}
+		
 		private void btnCancelar_Click(object sender, EventArgs e)
 		{
 			Close();
@@ -76,21 +97,33 @@ namespace Shoes.Windows.Formularios
 		{
 			if (ValidarDatos())
 			{
-				if (shoe == null)
+				if (s.shoe == null)
 				{
-					shoe = new Shoe();
+					s.shoe= new Shoe();
 				}
-				shoe.Model = txtModel.Text;
-				shoe.Description = txtDescripcion.Text;
-				shoe.Sport = sport;
-				shoe.Genre = genre;
-				shoe.ColorN = color;
-				shoe.Brand = brand;
-				shoe.Price = decimal.Parse(txtPrecio.Text);
-				shoe.SportId = sport.SportiD;
-				shoe.GenreId = genre.GenreId;
-				shoe.ColorId = color.ColorId;
-				shoe.BrandId = brand.BrandId;
+				s.shoe.Model = txtModel.Text;
+				s.shoe.Description = txtDescripcion.Text;
+				s.shoe.Sport = sport;
+				s.shoe.Genre = genre;
+				s.shoe.ColorN = color;
+				s.shoe.Brand = brand;
+				s.shoe.Price = decimal.Parse(txtPrecio.Text);
+				s.shoe.SportId = sport.SportiD;
+				s.shoe.GenreId = genre.GenreId;
+				s.shoe.ColorId = color.ColorId;
+				s.shoe.BrandId = brand.BrandId;
+
+				if (clstTalles.CheckedItems.Count > 0)
+				{
+					s.sizes = new List<Entidades.Size>();
+					
+					foreach (var item in clstTalles.CheckedItems)
+					{
+
+						s.sizes.Add((Size)item);
+
+					}
+				}
 
 				DialogResult = DialogResult.OK;
 			}
@@ -292,5 +325,16 @@ namespace Shoes.Windows.Formularios
 
 			}
 		}
+
+		internal (Shoe? shoe, List<Size>? sizes) GetShoesSizes()
+		{
+			return s;
+		}
+
+		internal void SetShoeSize((Shoe? shoe, List<Size>? sizes) s)
+		{
+			this.s = s;
+		}
+
 	}
 }

@@ -55,6 +55,8 @@
 			lblGenero = new Label();
 			btnNuevoDeporte = new Button();
 			btnNuevoGenero = new Button();
+			label8 = new Label();
+			clstTalles = new CheckedListBox();
 			((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
 			SuspendLayout();
 			// 
@@ -79,7 +81,7 @@
 			// 
 			// btnCancelar
 			// 
-			btnCancelar.Location = new Point(536, 627);
+			btnCancelar.Location = new Point(480, 785);
 			btnCancelar.Margin = new Padding(6);
 			btnCancelar.Name = "btnCancelar";
 			btnCancelar.Size = new Size(196, 94);
@@ -212,7 +214,7 @@
 			// 
 			// btnOk
 			// 
-			btnOk.Location = new Point(262, 627);
+			btnOk.Location = new Point(244, 785);
 			btnOk.Margin = new Padding(6);
 			btnOk.Name = "btnOk";
 			btnOk.Size = new Size(196, 94);
@@ -321,13 +323,33 @@
 			btnNuevoGenero.UseVisualStyleBackColor = false;
 			btnNuevoGenero.Click += btnNuevoGenero_Click;
 			// 
+			// label8
+			// 
+			label8.AutoSize = true;
+			label8.Location = new Point(143, 608);
+			label8.Name = "label8";
+			label8.Size = new Size(71, 32);
+			label8.TabIndex = 77;
+			label8.Text = "Talles";
+			// 
+			// clstTalles
+			// 
+			clstTalles.FormattingEnabled = true;
+			clstTalles.Location = new Point(223, 608);
+			clstTalles.Margin = new Padding(6);
+			clstTalles.Name = "clstTalles";
+			clstTalles.Size = new Size(490, 112);
+			clstTalles.TabIndex = 78;
+			// 
 			// frmShoesAE
 			// 
 			AcceptButton = btnOk;
 			AutoScaleDimensions = new SizeF(13F, 32F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = btnCancelar;
-			ClientSize = new Size(974, 829);
+			ClientSize = new Size(974, 894);
+			Controls.Add(clstTalles);
+			Controls.Add(label8);
 			Controls.Add(btnNuevoDeporte);
 			Controls.Add(btnNuevoGenero);
 			Controls.Add(lblGenero);
@@ -388,5 +410,7 @@
 		private Label lblColor;
 		private Button btnNuevoDeporte;
 		private Button btnNuevoGenero;
+		private CheckedListBox clstTalles;
+		private Label label8;
 	}
 }

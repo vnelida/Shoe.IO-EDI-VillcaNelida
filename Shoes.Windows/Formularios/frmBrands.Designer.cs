@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
 			panelToolBar = new Panel();
 			toolStrip1 = new ToolStrip();
 			tsbNuevo = new ToolStripButton();
@@ -40,8 +41,6 @@
 			aZToolStripMenuItem = new ToolStripMenuItem();
 			zAToolStripMenuItem = new ToolStripMenuItem();
 			tsbActualizar = new ToolStripButton();
-			toolStripSeparator2 = new ToolStripSeparator();
-			toolStripSeparator3 = new ToolStripSeparator();
 			tsbCerrar = new ToolStripButton();
 			panelNavegacion = new Panel();
 			btnSiguiente = new Button();
@@ -77,7 +76,7 @@
 			toolStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
 			toolStrip1.ImageScalingSize = new Size(32, 32);
-			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, tsbConsulta, tsbOrden, tsbActualizar, toolStripSeparator2, toolStripSeparator3, tsbCerrar });
+			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, tsbConsulta, tsbOrden, tsbActualizar, tsbCerrar });
 			toolStrip1.Location = new Point(0, 0);
 			toolStrip1.Name = "toolStrip1";
 			toolStrip1.Padding = new Padding(0, 0, 4, 0);
@@ -88,33 +87,36 @@
 			// 
 			// tsbNuevo
 			// 
-			tsbNuevo.Image = Properties.Resources.agregar_documento;
+			tsbNuevo.Image = Properties.Resources.icons8_agregar_archivo_64;
 			tsbNuevo.ImageScaling = ToolStripItemImageScaling.None;
 			tsbNuevo.ImageTransparentColor = Color.Magenta;
 			tsbNuevo.Name = "tsbNuevo";
 			tsbNuevo.Size = new Size(117, 113);
 			tsbNuevo.Text = "Nuevo";
 			tsbNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbNuevo.Click += tsbNuevo_Click_1;
 			// 
 			// tsbBorrar
 			// 
-			tsbBorrar.Image = Properties.Resources.eliminar_documento;
+			tsbBorrar.Image = Properties.Resources.icons8_eliminar_archivo_641;
 			tsbBorrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbBorrar.ImageTransparentColor = Color.Magenta;
 			tsbBorrar.Name = "tsbBorrar";
 			tsbBorrar.Size = new Size(110, 113);
 			tsbBorrar.Text = "Borrar";
 			tsbBorrar.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbBorrar.Click += tsbBorrar_Click_1;
 			// 
 			// tsbEditar
 			// 
-			tsbEditar.Image = Properties.Resources.archivo_de_edicion;
+			tsbEditar.Image = Properties.Resources.icons8_editar_archivo_64;
 			tsbEditar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbEditar.ImageTransparentColor = Color.Magenta;
 			tsbEditar.Name = "tsbEditar";
 			tsbEditar.Size = new Size(105, 113);
 			tsbEditar.Text = "Editar";
 			tsbEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbEditar.Click += tsbEditar_Click;
 			// 
 			// toolStripSeparator1
 			// 
@@ -123,18 +125,20 @@
 			// 
 			// tsbConsulta
 			// 
-			tsbConsulta.Image = Properties.Resources.buscar_alt;
+			tsbConsulta.BackColor = SystemColors.ControlLightLight;
+			tsbConsulta.Image = Properties.Resources.icons8_letra_pequeña_641;
 			tsbConsulta.ImageScaling = ToolStripItemImageScaling.None;
 			tsbConsulta.ImageTransparentColor = Color.Magenta;
 			tsbConsulta.Name = "tsbConsulta";
 			tsbConsulta.Size = new Size(148, 113);
 			tsbConsulta.Text = "Consulta";
 			tsbConsulta.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbConsulta.Click += tsbConsulta_Click;
 			// 
 			// tsbOrden
 			// 
 			tsbOrden.DropDownItems.AddRange(new ToolStripItem[] { aZToolStripMenuItem, zAToolStripMenuItem });
-			tsbOrden.Image = Properties.Resources.ordenar_alt;
+			tsbOrden.Image = Properties.Resources.icons8_clasificación_descendente_64;
 			tsbOrden.ImageScaling = ToolStripItemImageScaling.None;
 			tsbOrden.ImageTransparentColor = Color.Magenta;
 			tsbOrden.Name = "tsbOrden";
@@ -145,38 +149,32 @@
 			// aZToolStripMenuItem
 			// 
 			aZToolStripMenuItem.Name = "aZToolStripMenuItem";
-			aZToolStripMenuItem.Size = new Size(359, 54);
+			aZToolStripMenuItem.Size = new Size(211, 54);
 			aZToolStripMenuItem.Text = "A-Z";
+			aZToolStripMenuItem.Click += aZToolStripMenuItem_Click_1;
 			// 
 			// zAToolStripMenuItem
 			// 
 			zAToolStripMenuItem.Name = "zAToolStripMenuItem";
-			zAToolStripMenuItem.Size = new Size(359, 54);
+			zAToolStripMenuItem.Size = new Size(211, 54);
 			zAToolStripMenuItem.Text = "Z-A";
+			zAToolStripMenuItem.Click += zAToolStripMenuItem_Click_1;
 			// 
 			// tsbActualizar
 			// 
-			tsbActualizar.Image = Properties.Resources.girar_cuadrado;
+			tsbActualizar.Image = Properties.Resources.icons8_renovar_suscripción_64;
 			tsbActualizar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbActualizar.ImageTransparentColor = Color.Magenta;
 			tsbActualizar.Name = "tsbActualizar";
 			tsbActualizar.Size = new Size(162, 113);
 			tsbActualizar.Text = "Actualizar";
 			tsbActualizar.TextImageRelation = TextImageRelation.ImageAboveText;
-			// 
-			// toolStripSeparator2
-			// 
-			toolStripSeparator2.Name = "toolStripSeparator2";
-			toolStripSeparator2.Size = new Size(6, 119);
-			// 
-			// toolStripSeparator3
-			// 
-			toolStripSeparator3.Name = "toolStripSeparator3";
-			toolStripSeparator3.Size = new Size(6, 119);
+			tsbActualizar.Click += tsbActualizar_Click_1;
 			// 
 			// tsbCerrar
 			// 
-			tsbCerrar.Image = Properties.Resources.salida;
+			tsbCerrar.Alignment = ToolStripItemAlignment.Right;
+			tsbCerrar.Image = Properties.Resources.icons8_volver_64;
 			tsbCerrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbCerrar.ImageTransparentColor = Color.Magenta;
 			tsbCerrar.Name = "tsbCerrar";
@@ -291,13 +289,21 @@
 			// 
 			dgvDatos.AllowUserToAddRows = false;
 			dgvDatos.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+			dataGridViewCellStyle1.BackColor = Color.White;
 			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			dgvDatos.BackgroundColor = SystemColors.ButtonHighlight;
+			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = SystemColors.Control;
+			dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+			dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+			dgvDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colBrand });
 			dgvDatos.Dock = DockStyle.Fill;
-			dgvDatos.GridColor = SystemColors.HighlightText;
+			dgvDatos.GridColor = SystemColors.ControlLight;
 			dgvDatos.Location = new Point(0, 0);
 			dgvDatos.Margin = new Padding(6);
 			dgvDatos.MultiSelect = false;
@@ -372,11 +378,9 @@
 		private ToolStripButton tsbEditar;
 		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripButton tsbActualizar;
-		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripDropDownButton tsbOrden;
 		private ToolStripMenuItem aZToolStripMenuItem;
 		private ToolStripMenuItem zAToolStripMenuItem;
-		private ToolStripSeparator toolStripSeparator3;
 		private ToolStripButton tsbCerrar;
 		private ToolStripButton tsbConsulta;
 	}

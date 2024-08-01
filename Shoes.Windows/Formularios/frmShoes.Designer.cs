@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
 			panelGrilla = new Panel();
 			dgvDatos = new DataGridView();
 			colModel = new DataGridViewTextBoxColumn();
@@ -38,12 +38,24 @@
 			colGenre = new DataGridViewTextBoxColumn();
 			colBrand = new DataGridViewTextBoxColumn();
 			colSport = new DataGridViewTextBoxColumn();
+			colTalles = new DataGridViewTextBoxColumn();
 			panelToolBar = new Panel();
 			toolStrip1 = new ToolStrip();
 			tsbNuevo = new ToolStripButton();
 			tsbBorrar = new ToolStripButton();
 			tsbEditar = new ToolStripButton();
 			toolStripSeparator1 = new ToolStripSeparator();
+			toolStripSeparator2 = new ToolStripSeparator();
+			toolStripSeparator3 = new ToolStripSeparator();
+			tsbCerrar = new ToolStripButton();
+			tsbTalles = new ToolStripButton();
+			tsbNuevoTalle = new ToolStripButton();
+			tsbActualizar = new ToolStripButton();
+			tsbOrden = new ToolStripDropDownButton();
+			aZToolStripMenuItem = new ToolStripMenuItem();
+			zAToolStripMenuItem = new ToolStripMenuItem();
+			menorPrecioToolStripMenuItem = new ToolStripMenuItem();
+			mayorPrecioToolStripMenuItem = new ToolStripMenuItem();
 			tsbFiltrar = new ToolStripDropDownButton();
 			porMarca = new ToolStripMenuItem();
 			tscMarca = new ToolStripComboBox();
@@ -53,15 +65,6 @@
 			tscGenero = new ToolStripComboBox();
 			porDeporte = new ToolStripMenuItem();
 			tscDeporte = new ToolStripComboBox();
-			tsbActualizar = new ToolStripButton();
-			toolStripSeparator2 = new ToolStripSeparator();
-			tsbOrden = new ToolStripDropDownButton();
-			aZToolStripMenuItem = new ToolStripMenuItem();
-			zAToolStripMenuItem = new ToolStripMenuItem();
-			menorPrecioToolStripMenuItem = new ToolStripMenuItem();
-			mayorPrecioToolStripMenuItem = new ToolStripMenuItem();
-			toolStripSeparator3 = new ToolStripSeparator();
-			tsbCerrar = new ToolStripButton();
 			panelNavegacion = new Panel();
 			btnSiguiente = new Button();
 			txtCantidadRegistros = new TextBox();
@@ -81,23 +84,24 @@
 			// panelGrilla
 			// 
 			panelGrilla.Controls.Add(dgvDatos);
+			panelGrilla.Dock = DockStyle.Fill;
 			panelGrilla.Location = new Point(0, 115);
 			panelGrilla.Margin = new Padding(6);
 			panelGrilla.Name = "panelGrilla";
-			panelGrilla.Size = new Size(1474, 590);
+			panelGrilla.Size = new Size(1778, 666);
 			panelGrilla.TabIndex = 14;
 			// 
 			// dgvDatos
 			// 
 			dgvDatos.AllowUserToAddRows = false;
 			dgvDatos.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
-			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.BackColor = Color.White;
+			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			dgvDatos.BackgroundColor = SystemColors.ButtonHighlight;
 			dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colModel, colDescripcion, colPrice, colColor, colGenre, colBrand, colSport });
+			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colModel, colDescripcion, colPrice, colColor, colGenre, colBrand, colSport, colTalles });
 			dgvDatos.Dock = DockStyle.Fill;
-			dgvDatos.GridColor = SystemColors.HighlightText;
+			dgvDatos.GridColor = SystemColors.ControlLight;
 			dgvDatos.Location = new Point(0, 0);
 			dgvDatos.Margin = new Padding(6);
 			dgvDatos.MultiSelect = false;
@@ -106,13 +110,13 @@
 			dgvDatos.RowHeadersVisible = false;
 			dgvDatos.RowHeadersWidth = 82;
 			dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgvDatos.Size = new Size(1474, 590);
+			dgvDatos.Size = new Size(1778, 666);
 			dgvDatos.TabIndex = 0;
 			// 
 			// colModel
 			// 
 			colModel.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			colModel.HeaderText = "Model";
+			colModel.HeaderText = "Modelo";
 			colModel.MinimumWidth = 10;
 			colModel.Name = "colModel";
 			colModel.ReadOnly = true;
@@ -144,7 +148,7 @@
 			// colGenre
 			// 
 			colGenre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			colGenre.HeaderText = "Genre";
+			colGenre.HeaderText = "Genero";
 			colGenre.MinimumWidth = 10;
 			colGenre.Name = "colGenre";
 			colGenre.ReadOnly = true;
@@ -152,7 +156,7 @@
 			// colBrand
 			// 
 			colBrand.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			colBrand.HeaderText = "Brand";
+			colBrand.HeaderText = "Marca";
 			colBrand.MinimumWidth = 10;
 			colBrand.Name = "colBrand";
 			colBrand.ReadOnly = true;
@@ -160,10 +164,18 @@
 			// colSport
 			// 
 			colSport.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			colSport.HeaderText = "Sport";
+			colSport.HeaderText = "Deporte";
 			colSport.MinimumWidth = 10;
 			colSport.Name = "colSport";
 			colSport.ReadOnly = true;
+			// 
+			// colTalles
+			// 
+			colTalles.HeaderText = "Cantidad de talles";
+			colTalles.MinimumWidth = 10;
+			colTalles.Name = "colTalles";
+			colTalles.ReadOnly = true;
+			colTalles.Width = 200;
 			// 
 			// panelToolBar
 			// 
@@ -172,24 +184,25 @@
 			panelToolBar.Location = new Point(0, 0);
 			panelToolBar.Margin = new Padding(6);
 			panelToolBar.Name = "panelToolBar";
-			panelToolBar.Size = new Size(1474, 115);
+			panelToolBar.Size = new Size(1778, 115);
 			panelToolBar.TabIndex = 13;
 			// 
 			// toolStrip1
 			// 
 			toolStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			toolStrip1.ImageScalingSize = new Size(32, 32);
-			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, tsbFiltrar, tsbOrden, tsbActualizar, toolStripSeparator2, toolStripSeparator3, tsbCerrar });
+			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, toolStripSeparator2, toolStripSeparator3, tsbCerrar, tsbTalles, tsbNuevoTalle, tsbActualizar, tsbOrden, tsbFiltrar });
 			toolStrip1.Location = new Point(0, 0);
 			toolStrip1.Name = "toolStrip1";
 			toolStrip1.Padding = new Padding(0, 0, 4, 0);
-			toolStrip1.Size = new Size(1474, 119);
+			toolStrip1.Size = new Size(1778, 119);
 			toolStrip1.TabIndex = 0;
 			toolStrip1.Text = "toolStrip1";
+			toolStrip1.ItemClicked += toolStrip1_ItemClicked;
 			// 
 			// tsbNuevo
 			// 
-			tsbNuevo.Image = Properties.Resources.agregar_documento;
+			tsbNuevo.Image = Properties.Resources.icons8_agregar_archivo_64;
 			tsbNuevo.ImageScaling = ToolStripItemImageScaling.None;
 			tsbNuevo.ImageTransparentColor = Color.Magenta;
 			tsbNuevo.Name = "tsbNuevo";
@@ -200,7 +213,7 @@
 			// 
 			// tsbBorrar
 			// 
-			tsbBorrar.Image = Properties.Resources.eliminar_documento;
+			tsbBorrar.Image = Properties.Resources.icons8_eliminar_archivo_64;
 			tsbBorrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbBorrar.ImageTransparentColor = Color.Magenta;
 			tsbBorrar.Name = "tsbBorrar";
@@ -211,7 +224,7 @@
 			// 
 			// tsbEditar
 			// 
-			tsbEditar.Image = Properties.Resources.archivo_de_edicion;
+			tsbEditar.Image = Properties.Resources.icons8_editar_archivo_64;
 			tsbEditar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbEditar.ImageTransparentColor = Color.Magenta;
 			tsbEditar.Name = "tsbEditar";
@@ -225,10 +238,105 @@
 			toolStripSeparator1.Name = "toolStripSeparator1";
 			toolStripSeparator1.Size = new Size(6, 119);
 			// 
+			// toolStripSeparator2
+			// 
+			toolStripSeparator2.Name = "toolStripSeparator2";
+			toolStripSeparator2.Size = new Size(6, 119);
+			toolStripSeparator2.Visible = false;
+			// 
+			// toolStripSeparator3
+			// 
+			toolStripSeparator3.Name = "toolStripSeparator3";
+			toolStripSeparator3.Size = new Size(6, 119);
+			// 
+			// tsbCerrar
+			// 
+			tsbCerrar.Alignment = ToolStripItemAlignment.Right;
+			tsbCerrar.Image = Properties.Resources.icons8_volver_64;
+			tsbCerrar.ImageScaling = ToolStripItemImageScaling.None;
+			tsbCerrar.ImageTransparentColor = Color.Magenta;
+			tsbCerrar.Name = "tsbCerrar";
+			tsbCerrar.Size = new Size(84, 113);
+			tsbCerrar.Text = "Salir";
+			tsbCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbCerrar.Click += tsbCerrar_Click;
+			// 
+			// tsbTalles
+			// 
+			tsbTalles.Image = Properties.Resources.icons8_código_de_barras_64;
+			tsbTalles.ImageScaling = ToolStripItemImageScaling.None;
+			tsbTalles.ImageTransparentColor = Color.Magenta;
+			tsbTalles.Name = "tsbTalles";
+			tsbTalles.Size = new Size(100, 113);
+			tsbTalles.Text = "Talles";
+			tsbTalles.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbTalles.Click += tsbTalles_Click;
+			// 
+			// tsbNuevoTalle
+			// 
+			tsbNuevoTalle.Image = Properties.Resources.icons8_añadir_etiqueta_64;
+			tsbNuevoTalle.ImageScaling = ToolStripItemImageScaling.None;
+			tsbNuevoTalle.ImageTransparentColor = Color.Magenta;
+			tsbNuevoTalle.Name = "tsbNuevoTalle";
+			tsbNuevoTalle.Size = new Size(207, 113);
+			tsbNuevoTalle.Text = "Agregar talle";
+			tsbNuevoTalle.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbNuevoTalle.Click += tsbNuevoTalle_Click;
+			// 
+			// tsbActualizar
+			// 
+			tsbActualizar.Image = Properties.Resources.icons8_renovar_suscripción_64;
+			tsbActualizar.ImageScaling = ToolStripItemImageScaling.None;
+			tsbActualizar.ImageTransparentColor = Color.Magenta;
+			tsbActualizar.Name = "tsbActualizar";
+			tsbActualizar.Size = new Size(162, 113);
+			tsbActualizar.Text = "Actualizar";
+			tsbActualizar.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbActualizar.Click += tsbActualizar_Click;
+			// 
+			// tsbOrden
+			// 
+			tsbOrden.DropDownItems.AddRange(new ToolStripItem[] { aZToolStripMenuItem, zAToolStripMenuItem, menorPrecioToolStripMenuItem, mayorPrecioToolStripMenuItem });
+			tsbOrden.Image = Properties.Resources.icons8_clasificación_descendente_64;
+			tsbOrden.ImageScaling = ToolStripItemImageScaling.None;
+			tsbOrden.ImageTransparentColor = Color.Magenta;
+			tsbOrden.Name = "tsbOrden";
+			tsbOrden.Size = new Size(131, 113);
+			tsbOrden.Text = "Orden";
+			tsbOrden.TextImageRelation = TextImageRelation.ImageAboveText;
+			// 
+			// aZToolStripMenuItem
+			// 
+			aZToolStripMenuItem.Name = "aZToolStripMenuItem";
+			aZToolStripMenuItem.Size = new Size(350, 54);
+			aZToolStripMenuItem.Text = "A-Z";
+			aZToolStripMenuItem.Click += aZToolStripMenuItem_Click;
+			// 
+			// zAToolStripMenuItem
+			// 
+			zAToolStripMenuItem.Name = "zAToolStripMenuItem";
+			zAToolStripMenuItem.Size = new Size(350, 54);
+			zAToolStripMenuItem.Text = "Z-A";
+			zAToolStripMenuItem.Click += zAToolStripMenuItem_Click;
+			// 
+			// menorPrecioToolStripMenuItem
+			// 
+			menorPrecioToolStripMenuItem.Name = "menorPrecioToolStripMenuItem";
+			menorPrecioToolStripMenuItem.Size = new Size(350, 54);
+			menorPrecioToolStripMenuItem.Text = "Menor Precio";
+			menorPrecioToolStripMenuItem.Click += menorPrecioToolStripMenuItem_Click;
+			// 
+			// mayorPrecioToolStripMenuItem
+			// 
+			mayorPrecioToolStripMenuItem.Name = "mayorPrecioToolStripMenuItem";
+			mayorPrecioToolStripMenuItem.Size = new Size(350, 54);
+			mayorPrecioToolStripMenuItem.Text = "Mayor Precio";
+			mayorPrecioToolStripMenuItem.Click += mayorPrecioToolStripMenuItem_Click;
+			// 
 			// tsbFiltrar
 			// 
 			tsbFiltrar.DropDownItems.AddRange(new ToolStripItem[] { porMarca, porColor, porGenero, porDeporte });
-			tsbFiltrar.Image = Properties.Resources.ajustes_deslizadores__3_;
+			tsbFiltrar.Image = Properties.Resources.icons8_filtrar_64;
 			tsbFiltrar.ImageScaling = ToolStripItemImageScaling.None;
 			tsbFiltrar.ImageTransparentColor = Color.Magenta;
 			tsbFiltrar.Name = "tsbFiltrar";
@@ -241,7 +349,7 @@
 			// 
 			porMarca.DropDownItems.AddRange(new ToolStripItem[] { tscMarca });
 			porMarca.Name = "porMarca";
-			porMarca.Size = new Size(359, 54);
+			porMarca.Size = new Size(275, 54);
 			porMarca.Text = "Marca";
 			// 
 			// tscMarca
@@ -255,7 +363,7 @@
 			// 
 			porColor.DropDownItems.AddRange(new ToolStripItem[] { tscColor });
 			porColor.Name = "porColor";
-			porColor.Size = new Size(359, 54);
+			porColor.Size = new Size(275, 54);
 			porColor.Text = "Color";
 			// 
 			// tscColor
@@ -269,7 +377,7 @@
 			// 
 			porGenero.DropDownItems.AddRange(new ToolStripItem[] { tscGenero });
 			porGenero.Name = "porGenero";
-			porGenero.Size = new Size(359, 54);
+			porGenero.Size = new Size(275, 54);
 			porGenero.Text = "Genero";
 			// 
 			// tscGenero
@@ -283,7 +391,7 @@
 			// 
 			porDeporte.DropDownItems.AddRange(new ToolStripItem[] { tscDeporte });
 			porDeporte.Name = "porDeporte";
-			porDeporte.Size = new Size(359, 54);
+			porDeporte.Size = new Size(275, 54);
 			porDeporte.Text = "Deporte";
 			// 
 			// tscDeporte
@@ -292,77 +400,6 @@
 			tscDeporte.Size = new Size(359, 40);
 			tscDeporte.Text = " ";
 			tscDeporte.SelectedIndexChanged += tscDeporte_SelectedIndexChanged;
-			// 
-			// tsbActualizar
-			// 
-			tsbActualizar.Image = Properties.Resources.girar_cuadrado;
-			tsbActualizar.ImageScaling = ToolStripItemImageScaling.None;
-			tsbActualizar.ImageTransparentColor = Color.Magenta;
-			tsbActualizar.Name = "tsbActualizar";
-			tsbActualizar.Size = new Size(162, 113);
-			tsbActualizar.Text = "Actualizar";
-			tsbActualizar.TextImageRelation = TextImageRelation.ImageAboveText;
-			tsbActualizar.Click += tsbActualizar_Click;
-			// 
-			// toolStripSeparator2
-			// 
-			toolStripSeparator2.Name = "toolStripSeparator2";
-			toolStripSeparator2.Size = new Size(6, 119);
-			// 
-			// tsbOrden
-			// 
-			tsbOrden.DropDownItems.AddRange(new ToolStripItem[] { aZToolStripMenuItem, zAToolStripMenuItem, menorPrecioToolStripMenuItem, mayorPrecioToolStripMenuItem });
-			tsbOrden.Image = Properties.Resources.ordenar_alt;
-			tsbOrden.ImageScaling = ToolStripItemImageScaling.None;
-			tsbOrden.ImageTransparentColor = Color.Magenta;
-			tsbOrden.Name = "tsbOrden";
-			tsbOrden.Size = new Size(131, 113);
-			tsbOrden.Text = "Orden";
-			tsbOrden.TextImageRelation = TextImageRelation.ImageAboveText;
-			// 
-			// aZToolStripMenuItem
-			// 
-			aZToolStripMenuItem.Name = "aZToolStripMenuItem";
-			aZToolStripMenuItem.Size = new Size(359, 54);
-			aZToolStripMenuItem.Text = "A-Z";
-			aZToolStripMenuItem.Click += aZToolStripMenuItem_Click;
-			// 
-			// zAToolStripMenuItem
-			// 
-			zAToolStripMenuItem.Name = "zAToolStripMenuItem";
-			zAToolStripMenuItem.Size = new Size(359, 54);
-			zAToolStripMenuItem.Text = "Z-A";
-			zAToolStripMenuItem.Click += zAToolStripMenuItem_Click;
-			// 
-			// menorPrecioToolStripMenuItem
-			// 
-			menorPrecioToolStripMenuItem.Name = "menorPrecioToolStripMenuItem";
-			menorPrecioToolStripMenuItem.Size = new Size(359, 54);
-			menorPrecioToolStripMenuItem.Text = "Menor Precio";
-			menorPrecioToolStripMenuItem.Click += menorPrecioToolStripMenuItem_Click;
-			// 
-			// mayorPrecioToolStripMenuItem
-			// 
-			mayorPrecioToolStripMenuItem.Name = "mayorPrecioToolStripMenuItem";
-			mayorPrecioToolStripMenuItem.Size = new Size(359, 54);
-			mayorPrecioToolStripMenuItem.Text = "Mayor Precio";
-			mayorPrecioToolStripMenuItem.Click += mayorPrecioToolStripMenuItem_Click;
-			// 
-			// toolStripSeparator3
-			// 
-			toolStripSeparator3.Name = "toolStripSeparator3";
-			toolStripSeparator3.Size = new Size(6, 119);
-			// 
-			// tsbCerrar
-			// 
-			tsbCerrar.Image = Properties.Resources.salida;
-			tsbCerrar.ImageScaling = ToolStripItemImageScaling.None;
-			tsbCerrar.ImageTransparentColor = Color.Magenta;
-			tsbCerrar.Name = "tsbCerrar";
-			tsbCerrar.Size = new Size(84, 113);
-			tsbCerrar.Text = "Salir";
-			tsbCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
-			tsbCerrar.Click += tsbCerrar_Click;
 			// 
 			// panelNavegacion
 			// 
@@ -375,10 +412,10 @@
 			panelNavegacion.Controls.Add(btnAnterior);
 			panelNavegacion.Controls.Add(btnPrimero);
 			panelNavegacion.Dock = DockStyle.Bottom;
-			panelNavegacion.Location = new Point(0, 705);
+			panelNavegacion.Location = new Point(0, 781);
 			panelNavegacion.Margin = new Padding(6);
 			panelNavegacion.Name = "panelNavegacion";
-			panelNavegacion.Size = new Size(1474, 124);
+			panelNavegacion.Size = new Size(1778, 124);
 			panelNavegacion.TabIndex = 12;
 			// 
 			// btnSiguiente
@@ -469,10 +506,11 @@
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1474, 829);
+			ClientSize = new Size(1778, 905);
 			Controls.Add(panelGrilla);
 			Controls.Add(panelToolBar);
 			Controls.Add(panelNavegacion);
+			MinimumSize = new Size(1804, 976);
 			Name = "frmShoes";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "frmShoes";
@@ -493,20 +531,6 @@
 		private Panel panelGrilla;
         private DataGridView dgvDatos;
         private Panel panelToolBar;
-        private ToolStrip toolStrip1;
-        private ToolStripButton tsbNuevo;
-        private ToolStripButton tsbBorrar;
-        private ToolStripButton tsbEditar;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton tsbActualizar;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripDropDownButton tsbOrden;
-        private ToolStripMenuItem aZToolStripMenuItem;
-        private ToolStripMenuItem zAToolStripMenuItem;
-        private ToolStripMenuItem menorPrecioToolStripMenuItem;
-        private ToolStripMenuItem mayorPrecioToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripButton tsbCerrar;
         private Panel panelNavegacion;
         private Button btnSiguiente;
         private TextBox txtCantidadRegistros;
@@ -516,21 +540,38 @@
         private Button btnUltimo;
         private Button btnAnterior;
         private Button btnPrimero;
-        private DataGridViewTextBoxColumn colModel;
-        private DataGridViewTextBoxColumn colDescripcion;
-        private DataGridViewTextBoxColumn colPrice;
-        private DataGridViewTextBoxColumn colColor;
-        private DataGridViewTextBoxColumn colGenre;
-        private DataGridViewTextBoxColumn colBrand;
-        private DataGridViewTextBoxColumn colSport;
+		private ToolStrip toolStrip1;
+		private ToolStripButton tsbNuevo;
+		private ToolStripButton tsbBorrar;
+		private ToolStripButton tsbEditar;
+		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripDropDownButton tsbFiltrar;
 		private ToolStripMenuItem porMarca;
 		private ToolStripComboBox tscMarca;
 		private ToolStripMenuItem porColor;
 		private ToolStripComboBox tscColor;
-		private ToolStripMenuItem porDeporte;
 		private ToolStripMenuItem porGenero;
 		private ToolStripComboBox tscGenero;
+		private ToolStripMenuItem porDeporte;
 		private ToolStripComboBox tscDeporte;
+		private ToolStripDropDownButton tsbOrden;
+		private ToolStripMenuItem aZToolStripMenuItem;
+		private ToolStripMenuItem zAToolStripMenuItem;
+		private ToolStripMenuItem menorPrecioToolStripMenuItem;
+		private ToolStripMenuItem mayorPrecioToolStripMenuItem;
+		private ToolStripButton tsbActualizar;
+		private ToolStripSeparator toolStripSeparator2;
+		private ToolStripSeparator toolStripSeparator3;
+		private ToolStripButton tsbTalles;
+		private ToolStripButton tsbNuevoTalle;
+		private ToolStripButton tsbCerrar;
+		private DataGridViewTextBoxColumn colModel;
+		private DataGridViewTextBoxColumn colDescripcion;
+		private DataGridViewTextBoxColumn colPrice;
+		private DataGridViewTextBoxColumn colColor;
+		private DataGridViewTextBoxColumn colGenre;
+		private DataGridViewTextBoxColumn colBrand;
+		private DataGridViewTextBoxColumn colSport;
+		private DataGridViewTextBoxColumn colTalles;
 	}
 }

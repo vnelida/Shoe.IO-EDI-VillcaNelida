@@ -11,64 +11,69 @@ using System.Windows.Forms;
 
 namespace Shoes.Windows.Formularios
 {
-    public partial class frmGenreAE : Form
-    {
-        private Genre? genre;
-        public frmGenreAE()
-        {
-            InitializeComponent();
-        }
+	public partial class frmGenreAE : Form
+	{
+		private Genre? genre;
+		public frmGenreAE()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if (genre != null)
-            {
-                txtGenre.Text = genre.GnereName;
-            }
-        }
+		protected override void OnLoad(EventArgs e)
+		{
+			base.OnLoad(e);
+			if (genre != null)
+			{
+				txtGenre.Text = genre.GnereName;
+			}
+		}
 
-        internal Genre? GetTipo()
-        {
-            return genre;
-        }
+		internal Genre? GetTipo()
+		{
+			return genre;
+		}
 
-        internal void SetTipo(Genre genre)
-        {
-            this.genre = genre;
-        }
+		internal void SetTipo(Genre genre)
+		{
+			this.genre = genre;
+		}
 
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            if (ValidarDatos())
-            {
-                if (genre == null)
-                {
-                    genre = new Genre();
+		private void btnOk_Click(object sender, EventArgs e)
+		{
+			if (ValidarDatos())
+			{
+				if (genre == null)
+				{
+					genre = new Genre();
 
-                }
-                genre.GnereName = txtGenre.Text;
+				}
+				genre.GnereName = txtGenre.Text;
 
-                DialogResult = DialogResult.OK;
-            
-            }
-        }
+				DialogResult = DialogResult.OK;
 
-        private bool ValidarDatos()
-        {
-            bool valido = true;
-            errorProvider1.Clear();
-            if (string.IsNullOrEmpty(txtGenre.Text))
-            {
-                valido = false;
-                errorProvider1.SetError(txtGenre, "DEBE INGRESAR UN GENERO");
-            }
-            return valido;
-        }
+			}
+		}
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-    }
+		private bool ValidarDatos()
+		{
+			bool valido = true;
+			errorProvider1.Clear();
+			if (string.IsNullOrEmpty(txtGenre.Text))
+			{
+				valido = false;
+				errorProvider1.SetError(txtGenre, "DEBE INGRESAR UN GENERO");
+			}
+			return valido;
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void frmGenreAE_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

@@ -4,8 +4,8 @@ using Shoes.Entidades.Dto;
 using Shoes.Entidades.Enums;
 using Shoes.Servicios.Interface;
 using Shoes.Windows.Helpers;
-using Shoes.Windows.Properties;
 using Color = Shoes.Entidades.Color;
+using Size = Shoes.Entidades.Size;
 
 namespace Shoes.Windows.Formularios
 {
@@ -24,7 +24,7 @@ namespace Shoes.Windows.Formularios
 		private bool FilterOn = false;
 
 		private int pageCount;
-		private int pageSize = 8;
+		private int pageSize = 13;
 		private int pageNum = 0;
 		private int recordCount;
 
@@ -85,55 +85,87 @@ namespace Shoes.Windows.Formularios
 			if (dr == DialogResult.Cancel) { return; }
 			try
 			{
-				var shoe = frm.GetTipo();
-				if (!servicio.Existe(shoe))
+				(Shoe? shoe, List<Entidades.Size>? sizes) s = frm.GetShoesSizes();
+				if (s.shoe is null) return;
+				if (!servicio.Existe(s.shoe))
 				{
-					servicio.Guardar(shoe);
-					RecargarGrilla();
+					servicio.Guardar(s.shoe, s.sizes);
+					ActualizarDespuesDeAgregar(s.shoe);
+					MessageBox.Show("Registro agregado.", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
 				}
 				else
 				{
-					MessageBox.Show("Registro existente.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Registro existente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 
 			}
 			catch (Exception ex)
 			{
 
-				MessageBox.Show(ex.Message, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 			}
+		}
+
+		private void ActualizarDespuesDeAgregar(Shoe shoeAgreago)
+		{
+
+			int paginaActual = pageNum;
+			lista = servicio.GetListaPaginadaOrdenadaFiltrada(paginaActual, pageSize);
+			MostrarDatosEnGrilla();
+			bool shoeAgregadoEnPaginaActual = lista
+				.Any(s => s.ShoeId == shoeAgreago.ShoeId);
+
+			if (!shoeAgregadoEnPaginaActual)
+			{
+				pageNum = pageCount - 1;
+				cboPaginas.SelectedIndex = pageNum;
+				lista = servicio
+					.GetListaPaginadaOrdenadaFiltrada(pageNum, pageSize, orden,
+					brandFiltro, colorFiltro, genreFiltro, sportFiltro);
+				MostrarDatosEnGrilla();
+			}
+
 		}
 
 		private void tsbEditar_Click(object sender, EventArgs e)
 		{
 			if (dgvDatos.SelectedRows.Count == 0) { return; }
 			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is null) return;
+
 			ShoeListDto shoeListDto = (ShoeListDto)r.Tag;
-			var shoe = servicio.GetShoePorId(shoeListDto.ShoeId);
+			Shoe? shoe = servicio.GetShoePorId(shoeListDto.ShoeId);
+			if (shoe == null) return;
+
+			List<Size>? sizes = servicio.GetSizePorShoes(shoe.ShoeId);
+			(Shoe? shoe, List<Size>? sizes) s = (shoe, sizes);
+
+
 			frmShoesAE frm = new frmShoesAE(serviceProvider) { Text = "Editar" };
-			frm.SetTipo(shoe);
+			frm.SetShoeSize(s);
 			DialogResult dr = frm.ShowDialog(this);
 			try
 			{
-				shoe = frm.GetTipo();
-				if (!servicio.Existe(shoe))
+				s = frm.GetShoesSizes();
+				if (s.shoe is null) return;
+				if (!servicio.Existe(s.shoe))
 				{
-					servicio.Guardar(shoe);
-					RecargarGrilla();
+					servicio.Guardar(s.shoe, s.sizes);
+					ActualizarDespuesDeAgregar(shoe);
 
 				}
 				else
 				{
-					MessageBox.Show("Registro existente.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Registro existente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 
 			}
 			catch (Exception ex)
 			{
 
-				MessageBox.Show(ex.Message, "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 			}
 		}
@@ -160,7 +192,7 @@ namespace Shoes.Windows.Formularios
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -274,7 +306,7 @@ namespace Shoes.Windows.Formularios
 
 			else
 			{
-				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -308,7 +340,7 @@ namespace Shoes.Windows.Formularios
 
 			else
 			{
-				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -342,7 +374,7 @@ namespace Shoes.Windows.Formularios
 
 			else
 			{
-				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -376,7 +408,7 @@ namespace Shoes.Windows.Formularios
 
 			else
 			{
-				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Presione 'Actualizar' para volver a elegir un filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -385,6 +417,92 @@ namespace Shoes.Windows.Formularios
 			FilterOn = false;
 			tsbFiltrar.Enabled = true;
 			RecargarGrilla();
+		}
+
+		private void tsbTalles_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is null) return;
+			ShoeListDto shoesDto = (ShoeListDto)r.Tag;
+			//List<Size>? sizes = servicio.GetSizePorShoes(shoesDto.ShoeId);
+			List<SizeDetailDto>? sizes = servicio.GetSizeDetalle(shoesDto.ShoeId);
+
+			if (sizes is null || sizes.Count == 0)
+			{
+				MessageBox.Show("El articulo seleccionado no tiene talles disponibles.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			frmDetalleTalles frm = new frmDetalleTalles() { Text = $"Talles del articulo {shoesDto.Model}" };
+			frm.SetDatos(sizes);
+			frm.ShowDialog(this);
+
+		}
+
+		private void tsbNuevoTalle_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is null) return;
+			var shoesDto = (ShoeListDto)r.Tag;
+
+			Shoe? shoe = servicio.GetShoePorId(shoesDto.ShoeId);
+			if (shoe is null) return;
+
+			frmAgregarTalle frm = new frmAgregarTalle(serviceProvider) { Text = "Asignar talles" };
+			DialogResult dr = frm.ShowDialog(this);
+			if (dr == DialogResult.Cancel) { return; }
+			try
+			{
+				Size? size = frm.GetSize();
+				if (size is null) { return; }
+				if (!servicio.ExisteRelacion(shoe, size))
+				{
+
+					servicio.AsignarSizeAShoe(shoe, size);
+					if (shoesDto is not null)
+					{
+						shoesDto.CantidadDeTalles++;
+						GridHelper.SetearFila(r, shoesDto);
+					}
+					MessageBox.Show("Talle agregado al articulo correctamente.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+				}
+				else
+				{
+					var respuesta = MessageBox.Show("El talle ya se encuentra asignado al articulo seleccionado. \n ¿Desea agregar al stock una unidad?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+					if (respuesta == DialogResult.No) { return; }
+					else
+					{
+						servicio.AgregarStock(shoe.ShoeId, size.SizeId, 1);
+						MessageBox.Show("Stock actualizado", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+										
+				}
+
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+		{
+
+		}
+
+		private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

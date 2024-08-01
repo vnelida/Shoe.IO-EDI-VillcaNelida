@@ -1,4 +1,5 @@
-﻿using Shoes.Datos.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Shoes.Datos.Interfaces;
 using Shoes.Entidades;
 using Shoes.Entidades.Enums;
 
@@ -33,6 +34,7 @@ namespace Shoes.Datos.Repositories
 
 		public bool Existe(Color color)
 		{
+			
 			if (color.ColorId == 0)
 			{
 				return _context.Colors.Any(c => c.ColorName == color.ColorName);
@@ -101,6 +103,24 @@ namespace Shoes.Datos.Repositories
 					break;
 			}
 			return query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+		}
+
+		public List<Shoe>? GetShoe(Color? colorEnDB)
+		{
+			if (colorEnDB != null)
+			{
+				_context.Entry(colorEnDB)
+					.Collection(b => b.Shoes)
+					.Query()
+					.Include(s => s.Brand)
+					.Include(s => s.ColorN)
+					.Include(s => s.Sport)
+					.Include(s => s.Genre)
+					.Load();
+				var shoes = colorEnDB.Shoes.ToList();
+				return shoes;
+			}
+			return null;
 		}
 	}
 }

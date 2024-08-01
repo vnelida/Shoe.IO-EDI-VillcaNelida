@@ -60,7 +60,7 @@ namespace Shoes.Datos.Repositories
 
 		public int GetCantidad()
 		{
-			return context.Colors.Count();
+			return context.Sports.Count();
 		}
 
 
@@ -101,6 +101,24 @@ namespace Shoes.Datos.Repositories
 					break;
 			}
 			return query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+		}
+
+		public List<Shoe>? GetPlanta(Sport sport)
+		{
+			if (sport != null)
+			{
+				context.Entry(sport)
+					.Collection(b => b.Shoes)
+					.Query()
+					.Include(s => s.Brand)
+					.Include(s => s.ColorN)
+					.Include(s => s.Sport)
+					.Include(s => s.Genre)
+					.Load();
+				var shoes = sport.Shoes.ToList();
+				return shoes;
+			}
+			return null;
 		}
 	}
 }

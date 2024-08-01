@@ -18,9 +18,10 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly IGenresService servicio;
 		private List<Genre>? lista;
+		private List<Shoe> listaShoes;
 		private Orden orden;
 		private int pageCount;
-		private int pageSize = 1;
+		private int pageSize = 13;
 		private int page = 1;
 		private int recordCount;
 		public frmGenres(IGenresService _servicio)
@@ -204,22 +205,6 @@ namespace Shoes.Windows.Formularios
 			MostrarDatosEnGrilla();
 		}
 
-		private void btnUltimo_Click(object sender, EventArgs e)
-		{
-			page = pageCount;
-			cboPaginas.SelectedIndex = page - 1;
-			lista = servicio.GetListaPaginada(page, pageSize);
-			MostrarDatosEnGrilla();
-		}
-
-		private void btnPrimero_Click(object sender, EventArgs e)
-		{
-			page = 1;
-			cboPaginas.SelectedIndex = page - 1;
-			lista = servicio.GetListaPaginada(page, pageSize);
-			MostrarDatosEnGrilla();
-		}
-
 		private void cboPaginas_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			page = int.Parse(cboPaginas.Text);
@@ -260,6 +245,38 @@ namespace Shoes.Windows.Formularios
 			orden = Orden.ZA;
 			MostrarOrdenado(orden);
 
+		}
+
+		private void tsbConsulta_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			Genre genre = (Genre)r.Tag;
+			var genreEnDB = servicio.GetGenrePorId(genre.GenreId);
+			listaShoes = servicio.GetShoes(genreEnDB);
+
+			frmMostrarShoes frm = new frmMostrarShoes() { Text = $"{genre.GnereName}" };
+			frm.SetLista(listaShoes);
+			frm.ShowDialog(this);
+		}
+
+		private void btnUltimo_Click_1(object sender, EventArgs e)
+		{
+			page = pageCount;
+			cboPaginas.SelectedIndex = page - 1;
+			lista = servicio.GetListaPaginada(page, pageSize);
+			MostrarDatosEnGrilla();
+		}
+
+		private void btnPrimero_Click_1(object sender, EventArgs e)
+		{
+			page = 1;
+			cboPaginas.SelectedIndex = page - 1;
+			lista = servicio.GetListaPaginada(page, pageSize);
+			MostrarDatosEnGrilla();
 		}
 	}
 }

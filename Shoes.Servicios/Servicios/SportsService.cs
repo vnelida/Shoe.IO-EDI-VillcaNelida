@@ -113,5 +113,10 @@ namespace Shoes.Servicios.Servicios
 		{
 			return repository.GetListaPaginada(page, pageSize, orden);
 		}
+
+		public List<Shoe>? GetShoes(Sport sport)
+		{
+			return repository.GetPlanta(sport);
+		}
 	}
 }

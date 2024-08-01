@@ -18,9 +18,10 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly ISportsService servicio;
 		private List<Sport> lista;
+		private List<Shoe> listaShoes;
 		private Orden orden;
 		private int pageCount;
-		private int pageSize = 5;
+		private int pageSize = 13;
 		private int page = 1;
 		private int recordCount;
 
@@ -239,6 +240,22 @@ namespace Shoes.Windows.Formularios
 		private void tsbActualizar_Click(object sender, EventArgs e)
 		{
 			RecargarGrilla();
+		}
+
+		private void tsbConsulta_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			Sport sport = (Sport)r.Tag;
+			var sportInDB = servicio.GetSportPorId(sport.SportiD);
+			listaShoes = servicio.GetShoes(sportInDB);
+
+			frmMostrarShoes frm = new frmMostrarShoes() { Text = $"{sport.SportName}" };
+			frm.SetLista(listaShoes);
+			frm.ShowDialog(this);
 		}
 	}
 }
