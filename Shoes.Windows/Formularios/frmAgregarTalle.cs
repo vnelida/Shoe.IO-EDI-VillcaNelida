@@ -7,6 +7,7 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly IServiceProvider _serviceProvider;
 		private Size? sizeSelect;
+		int stock;
 		public frmAgregarTalle(IServiceProvider serviceProvider)
 		{
 			InitializeComponent();
@@ -27,6 +28,7 @@ namespace Shoes.Windows.Formularios
 		{
 			if (ValidarDatos())
 			{
+				stock = (int)stockUpDown.Value;
 				DialogResult = DialogResult.OK;
 			}
 		}
@@ -61,9 +63,17 @@ namespace Shoes.Windows.Formularios
 			}
 		}
 
+		internal int GetStock()
+		{
+			return stock;
+		}
 		internal Size? GetSize()
 		{
 			return sizeSelect;
+		}
+
+		private void stockUpDown_ValueChanged(object sender, EventArgs e)
+		{
 		}
 	}
 }

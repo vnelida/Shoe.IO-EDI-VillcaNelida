@@ -1,5 +1,7 @@
-﻿using Shoes.Entidades;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Shoes.Entidades;
 using Shoes.Entidades.Dto;
+using Shoes.Servicios.Interface;
 using Shoes.Windows.Helpers;
 using System;
 using System.Collections.Generic;
@@ -16,29 +18,105 @@ namespace Shoes.Windows.Formularios
 {
 	public partial class frmDetalleTalles : Form
 	{
-		private List<Size>? sizes;
-		private List<SizeDetailDto>? sizesDto;
-		public frmDetalleTalles()
+		private List<ShoeSize>? shoeSizes;
+		private int shoeId;
+		private readonly IShoesService servicio;
+		public frmDetalleTalles(int shoeId, IShoesService servicio)
 		{
 			InitializeComponent();
+			this.shoeId = shoeId;
+			this.servicio = servicio;
 		}
 
-		public void SetDatos(List<SizeDetailDto> sizes)
+		public void SetDatos(List<ShoeSize> shoeSizes)
 		{
-			sizesDto = sizes;
+			this.shoeSizes = shoeSizes;
 		}
 
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			if (sizesDto != null)
+			if (shoeSizes != null)
 			{
-				GridHelper.MostrarDatosEnGrilla(sizesDto, dgvDatos);
+				GridHelper.MostrarDatosEnGrilla(shoeSizes, dgvDatos);
 			}
 		}
 		private void frmDetalleTalles_Load(object sender, EventArgs e)
 		{
 
+		}
+
+		private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+
+		}
+
+
+		private void ModificarStock_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				MessageBox.Show("Debe seleccionar un talle para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is null) return;
+			var shoeSize = (ShoeSize)r.Tag;
+
+			frmEditarStock frm = new frmEditarStock(shoeSize.ShoeId, shoeSize.SizeId, servicio);
+			frm.ShowDialog();
+
+			GridHelper.MostrarDatosEnGrilla(shoeSizes, dgvDatos);
+		}
+
+		private void tsbQuitarStock_Click(object sender, EventArgs e)
+		{
+		//	if (dgvDatos.SelectedRows.Count == 0)
+		//	{
+		//		MessageBox.Show("Debe seleccionar un talle para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		//		return;
+			}
+
+		//	var r = dgvDatos.SelectedRows[0];
+		//	if (r.Tag is null) return;
+		//	var shoeSize = (ShoeSize)r.Tag;
+
+		//	frmEditarStock frm = new frmEditarStock(shoeSize.ShoeId, shoeSize.SizeId, servicio);
+		//	frm.ShowDialog();
+
+		//	GridHelper.MostrarDatosEnGrilla(shoeSizes, dgvDatos);
+		//}
+
+		private void tsbAgregarStock_Click(object sender, EventArgs e)
+		{
+			//if (dgvDatos.SelectedRows.Count == 0)
+			//{
+			//	MessageBox.Show("Debe seleccionar un talle para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			//	return;
+			//}
+
+			//var r = dgvDatos.SelectedRows[0];
+			//if (r.Tag is null) return;
+			//var shoeSize = (ShoeSize)r.Tag;
+
+			//EditarStock1 frm = new EditarStock1(shoeSize.ShoeId, shoeSize.SizeId, servicio);
+			
+			//DialogResult dr=frm.ShowDialog();
+			//if (dr==DialogResult.OK)
+			//{
+			//	int stock = frm.GetStock();
+			//	servicio.EditarSs(shoeSize.ShoeSizeId, stock);
+			//	GridHelper.MostrarDatosEnGrilla(shoeSizes, dgvDatos);
+			//	MessageBox.Show("Registro agregado exitosamente");
+			//}
+				
+			
+			//else
+			//{
+			//	MessageBox.Show("Registro duplicado.");
+			//}
+						
 		}
 	}
 }

@@ -20,6 +20,7 @@ namespace Shoes.Windows.Formularios
 	{
 		private readonly ISizeService service;
 		private List<Size> lista;
+		private List<Shoe> listaShoes;
 
 		private Orden orden;
 		private int pageCount;
@@ -213,6 +214,22 @@ namespace Shoes.Windows.Formularios
 				}
 
 			}
+		}
+
+		private void tsbConsulta_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			Size size = (Size)r.Tag;
+			var sizeEnDB = service.GetSizePorId(size.SizeId);
+			listaShoes = service.GetShoes(sizeEnDB);
+
+			frmMostrarShoes frm = new frmMostrarShoes() { Text = $"Talle {size.SizeNumber}" };
+			frm.SetLista(listaShoes);
+			frm.ShowDialog(this);
 		}
 	}
 }

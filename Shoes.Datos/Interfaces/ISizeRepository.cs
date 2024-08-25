@@ -17,6 +17,7 @@ namespace Shoes.Datos.Interfaces
 		int GetCantidad();
 		List<Size> GetLista();
 		List<Size> GetListaPaginada(int page, int pageSize);
+		List<Shoe> GetShoe(Size? sizeEnDB);
 		Size? GetSizePorId(int id);
 		Size? GetSizePorIDxShoe(int id, bool incluyeShoe=false);
 		Size GetSizetPorNombre(string sizeN);

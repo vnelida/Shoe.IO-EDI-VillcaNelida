@@ -18,7 +18,7 @@ namespace Shoes.Servicios.Interface
 		List<ShoeListDto> GetListaPaginadaOrdenadaFiltrada(int page, int pageSize, Orden? orden = null, Brand? brandFiltro = null, Color? colorFiltro = null, Genre? genreFiltro = null, Sport? sportFiltro = null);
 		List<Size>? GetSizePorShoes(int shoeId);
 
-
+		void EditarSs(int shoeSizeId, int stock);
 		List<SizeDetailDto>? GetSizeDetalle(int shoeId);
 
 
@@ -29,5 +29,7 @@ namespace Shoes.Servicios.Interface
 		IEnumerable<IGrouping<int, Shoe>> GetShoesXGenre();
 		IEnumerable<IGrouping<int, Shoe>> GetShoesXBrands();
 		void AgregarStock(int shoeId, int sizeId, int unidades);
+		List<ShoeSize> GetListaShoesSizes(int shoeId);
+		ShoeSize GetShoeSize(int shoeId, int sizeId);
 	}
 }

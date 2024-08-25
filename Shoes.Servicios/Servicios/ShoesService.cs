@@ -68,7 +68,7 @@ namespace Shoes.Servicios.Servicios
 				{
 					ShoeId = shoe.ShoeId,
 					SizeId = size.SizeId,
-					QuantityInStock = 1
+					QuantityInStock = 0
 				};
 
 				repository.AgregarShoeSize(nuevaRelacion);
@@ -144,6 +144,11 @@ namespace Shoes.Servicios.Servicios
 			}
 		}
 
+		public void EditarSs(int shoeSizeId, int stock)
+		{
+			repository.EditarSs(shoeSizeId, stock);
+		}
+
 		public bool Existe(Shoe shoe)
         {
             return repository.Existe(shoe);
@@ -180,10 +185,20 @@ namespace Shoes.Servicios.Servicios
 			   orden, brandFiltro, colorFiltro, genreFiltro, sportFiltro);
 		}
 
+		public List<ShoeSize> GetListaShoesSizes(int shoeId)
+		{
+			return repository.GetListaShoesSizes(shoeId);
+		}
+
 		public Shoe? GetShoePorId(int shoeId)
         {
             return repository.GetShoePorId(shoeId);
         }
+
+		public ShoeSize GetShoeSize(int shoeId, int sizeId)
+		{
+			return repository.GetShoeSize(shoeId, sizeId);
+		}
 
 		public IEnumerable<IGrouping<int, Shoe>> GetShoesXBrands()
 		{

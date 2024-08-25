@@ -68,6 +68,11 @@ namespace Shoes.Servicios.Servicios
 			return repository.GetListaPaginada(page, pageSize);
 		}
 
+		public List<Shoe> GetShoes(Size? sizeEnDB)
+		{
+			return repository.GetShoe(sizeEnDB);
+		}
+
 		public Size? GetSizePorId(int id)
 		{
 			return repository.GetSizePorId(id);

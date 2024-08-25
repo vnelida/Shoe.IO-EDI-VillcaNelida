@@ -119,7 +119,7 @@ namespace Shoes.Servicios.Servicios
 
 		public List<Shoe>? GetShoes(Genre genre)
 		{
-			return repository.GetPlanta(genre);
+			return repository.GetShoe(genre);
 		}
 	}
 }

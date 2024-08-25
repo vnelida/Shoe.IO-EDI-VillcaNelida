@@ -13,7 +13,7 @@ namespace Shoes.Datos.Interfaces
 		List<Sport> GetLista();
 		List<Sport> GetListaOrdenada(Orden orden);
 		List<Sport> GetListaPaginada(int page, int pageSize, Orden? orden);
-		List<Shoe>? GetPlanta(Sport sport);
+		List<Shoe>? GetShoe(Sport sport);
 		Sport? GetSportPorId(int idEditar);
 		Sport? GetSportPorNombre(string sportEdit);
 		void Guardar(Sport sport);

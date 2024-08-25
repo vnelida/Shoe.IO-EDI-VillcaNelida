@@ -49,8 +49,13 @@
 			zAToolStripMenuItem = new ToolStripMenuItem();
 			tsbActualizar = new ToolStripButton();
 			tsbCerrar = new ToolStripButton();
+			splitContainer1 = new SplitContainer();
 			((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
 			toolStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+			splitContainer1.Panel1.SuspendLayout();
+			splitContainer1.Panel2.SuspendLayout();
+			splitContainer1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// dgvDatos
@@ -60,15 +65,16 @@
 			dgvDatos.BackgroundColor = SystemColors.ButtonHighlight;
 			dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colColor });
+			dgvDatos.Dock = DockStyle.Fill;
 			dgvDatos.GridColor = SystemColors.ControlLight;
-			dgvDatos.Location = new Point(0, 122);
+			dgvDatos.Location = new Point(0, 0);
 			dgvDatos.MultiSelect = false;
 			dgvDatos.Name = "dgvDatos";
 			dgvDatos.ReadOnly = true;
 			dgvDatos.RowHeadersVisible = false;
 			dgvDatos.RowHeadersWidth = 82;
 			dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgvDatos.Size = new Size(1474, 613);
+			dgvDatos.Size = new Size(1474, 627);
 			dgvDatos.TabIndex = 5;
 			// 
 			// colColor
@@ -82,7 +88,7 @@
 			// btnSiguiente
 			// 
 			btnSiguiente.Image = Properties.Resources.angulo_derecho;
-			btnSiguiente.Location = new Point(1158, 751);
+			btnSiguiente.Location = new Point(1159, 5);
 			btnSiguiente.Margin = new Padding(6);
 			btnSiguiente.Name = "btnSiguiente";
 			btnSiguiente.Size = new Size(129, 63);
@@ -92,7 +98,7 @@
 			// 
 			// txtCantidadRegistros
 			// 
-			txtCantidadRegistros.Location = new Point(294, 763);
+			txtCantidadRegistros.Location = new Point(295, 17);
 			txtCantidadRegistros.Margin = new Padding(6);
 			txtCantidadRegistros.Name = "txtCantidadRegistros";
 			txtCantidadRegistros.ReadOnly = true;
@@ -103,7 +109,7 @@
 			// 
 			cboPaginas.DropDownStyle = ComboBoxStyle.DropDownList;
 			cboPaginas.FormattingEnabled = true;
-			cboPaginas.Location = new Point(103, 763);
+			cboPaginas.Location = new Point(104, 17);
 			cboPaginas.Margin = new Padding(6);
 			cboPaginas.Name = "cboPaginas";
 			cboPaginas.Size = new Size(123, 40);
@@ -113,7 +119,7 @@
 			// label2
 			// 
 			label2.AutoSize = true;
-			label2.Location = new Point(252, 766);
+			label2.Location = new Point(253, 20);
 			label2.Margin = new Padding(6, 0, 6, 0);
 			label2.Name = "label2";
 			label2.Size = new Size(41, 32);
@@ -123,7 +129,7 @@
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(45, 769);
+			label1.Location = new Point(46, 23);
 			label1.Margin = new Padding(6, 0, 6, 0);
 			label1.Name = "label1";
 			label1.Size = new Size(57, 32);
@@ -133,7 +139,7 @@
 			// btnUltimo
 			// 
 			btnUltimo.Image = Properties.Resources.angulo_doble_derecha;
-			btnUltimo.Location = new Point(1314, 751);
+			btnUltimo.Location = new Point(1315, 5);
 			btnUltimo.Margin = new Padding(6);
 			btnUltimo.Name = "btnUltimo";
 			btnUltimo.Size = new Size(125, 63);
@@ -144,7 +150,7 @@
 			// btnAnterior
 			// 
 			btnAnterior.Image = Properties.Resources.angulo_izquierdo;
-			btnAnterior.Location = new Point(1017, 751);
+			btnAnterior.Location = new Point(1018, 5);
 			btnAnterior.Margin = new Padding(6);
 			btnAnterior.Name = "btnAnterior";
 			btnAnterior.Size = new Size(129, 63);
@@ -155,7 +161,7 @@
 			// btnPrimero
 			// 
 			btnPrimero.Image = Properties.Resources.angulo_doble_izquierda__1_;
-			btnPrimero.Location = new Point(861, 751);
+			btnPrimero.Location = new Point(862, 5);
 			btnPrimero.Margin = new Padding(6);
 			btnPrimero.Name = "btnPrimero";
 			btnPrimero.Size = new Size(129, 63);
@@ -272,21 +278,38 @@
 			tsbCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
 			tsbCerrar.Click += tsbCerrar_Click;
 			// 
+			// splitContainer1
+			// 
+			splitContainer1.Dock = DockStyle.Fill;
+			splitContainer1.Location = new Point(0, 119);
+			splitContainer1.Name = "splitContainer1";
+			splitContainer1.Orientation = Orientation.Horizontal;
+			// 
+			// splitContainer1.Panel1
+			// 
+			splitContainer1.Panel1.Controls.Add(dgvDatos);
+			// 
+			// splitContainer1.Panel2
+			// 
+			splitContainer1.Panel2.Controls.Add(txtCantidadRegistros);
+			splitContainer1.Panel2.Controls.Add(btnPrimero);
+			splitContainer1.Panel2.Controls.Add(btnSiguiente);
+			splitContainer1.Panel2.Controls.Add(btnAnterior);
+			splitContainer1.Panel2.Controls.Add(btnUltimo);
+			splitContainer1.Panel2.Controls.Add(cboPaginas);
+			splitContainer1.Panel2.Controls.Add(label1);
+			splitContainer1.Panel2.Controls.Add(label2);
+			splitContainer1.Size = new Size(1474, 710);
+			splitContainer1.SplitterDistance = 627;
+			splitContainer1.TabIndex = 15;
+			// 
 			// frmColors
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1474, 829);
+			Controls.Add(splitContainer1);
 			Controls.Add(toolStrip1);
-			Controls.Add(btnSiguiente);
-			Controls.Add(txtCantidadRegistros);
-			Controls.Add(cboPaginas);
-			Controls.Add(label2);
-			Controls.Add(label1);
-			Controls.Add(btnUltimo);
-			Controls.Add(btnAnterior);
-			Controls.Add(btnPrimero);
-			Controls.Add(dgvDatos);
 			Name = "frmColors";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Colors";
@@ -294,6 +317,11 @@
 			((System.ComponentModel.ISupportInitialize)dgvDatos).EndInit();
 			toolStrip1.ResumeLayout(false);
 			toolStrip1.PerformLayout();
+			splitContainer1.Panel1.ResumeLayout(false);
+			splitContainer1.Panel2.ResumeLayout(false);
+			splitContainer1.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+			splitContainer1.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -321,5 +349,6 @@
 		private ToolStripMenuItem zAToolStripMenuItem;
 		private ToolStripButton tsbCerrar;
 		private ToolStripButton tsbConsulta;
+		private SplitContainer splitContainer1;
 	}
 }

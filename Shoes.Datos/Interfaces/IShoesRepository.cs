@@ -26,5 +26,8 @@ namespace Shoes.Datos.Interfaces
 		IEnumerable<IGrouping<int, Shoe>> GetShoesXMarca();
 		List<SizeDetailDto>? GetSizeDetail(int shoeId);
 		void AgregarStock(int shoeId, int sizeId, int unidades);
+		List<ShoeSize> GetListaShoesSizes(int shoeId);
+		ShoeSize GetShoeSize(int shoeId, int sizeId);
+		void EditarSs(int shoeSizeId, int stock);
 	}
 }

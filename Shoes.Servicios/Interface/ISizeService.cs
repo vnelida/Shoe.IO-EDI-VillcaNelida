@@ -20,6 +20,6 @@ namespace Shoes.Servicios.Interface
 		Size GetSizePorNombre(string sizeN);
 		int GetCantidad();
 		List<Size> GetListaPaginada(int page, int pageSize);
-
+		List<Shoe> GetShoes(Size? sizeEnDB);
 	}
 }

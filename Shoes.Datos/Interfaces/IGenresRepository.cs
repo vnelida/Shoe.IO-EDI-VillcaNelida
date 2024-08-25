@@ -15,7 +15,7 @@ namespace Shoes.Datos.Interfaces
 		List<Genre> GetLista();
 		List<Genre> GetListaOrdenada(Orden orden);
 		List<Genre> GetListaPaginada(int page, int pageSize, Orden? orden);
-		List<Shoe>? GetPlanta(Genre genre);
+		List<Shoe>? GetShoe(Genre genre);
 		void Guardar(Genre genre);
 	}
 }

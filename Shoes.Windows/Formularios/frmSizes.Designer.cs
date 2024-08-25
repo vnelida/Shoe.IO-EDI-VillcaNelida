@@ -47,6 +47,7 @@
 			btnUltimo = new Button();
 			btnAnterior = new Button();
 			btnPrimero = new Button();
+			tsbConsulta = new ToolStripButton();
 			panelGrilla.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
 			panelToolBar.SuspendLayout();
@@ -108,7 +109,7 @@
 			// 
 			toolStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			toolStrip1.ImageScalingSize = new Size(32, 32);
-			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, tsbCerrar });
+			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, tsbCerrar, tsbConsulta });
 			toolStrip1.Location = new Point(0, 0);
 			toolStrip1.Name = "toolStrip1";
 			toolStrip1.Padding = new Padding(0, 0, 4, 0);
@@ -262,6 +263,17 @@
 			btnPrimero.UseVisualStyleBackColor = true;
 			btnPrimero.Click += btnPrimero_Click;
 			// 
+			// tsbConsulta
+			// 
+			tsbConsulta.Image = Properties.Resources.icons8_letra_pequeña_641;
+			tsbConsulta.ImageScaling = ToolStripItemImageScaling.None;
+			tsbConsulta.ImageTransparentColor = Color.Magenta;
+			tsbConsulta.Name = "tsbConsulta";
+			tsbConsulta.Size = new Size(148, 113);
+			tsbConsulta.Text = "Consulta";
+			tsbConsulta.TextImageRelation = TextImageRelation.ImageAboveText;
+			tsbConsulta.Click += tsbConsulta_Click;
+			// 
 			// frmSizes
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
@@ -305,5 +317,6 @@
 		private Button btnAnterior;
 		private Button btnPrimero;
 		private DataGridViewTextBoxColumn colSize;
+		private ToolStripButton tsbConsulta;
 	}
 }

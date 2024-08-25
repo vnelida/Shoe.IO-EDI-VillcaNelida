@@ -116,7 +116,7 @@ namespace Shoes.Servicios.Servicios
 
 		public List<Shoe>? GetShoes(Sport sport)
 		{
-			return repository.GetPlanta(sport);
+			return repository.GetShoe(sport);
 		}
 	}
 }

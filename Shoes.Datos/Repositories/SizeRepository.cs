@@ -71,6 +71,23 @@ namespace Shoes.Datos.Repositories
 
 		}
 
+		public List<Shoe> GetShoe(Size? sizeEnDB)
+		{
+			if (sizeEnDB != null)
+			{
+				var shoes = context.Shoes
+			.Where(s => s.ShoesSizes.Any(ss => ss.SizeId == sizeEnDB.SizeId))
+			.Include(s => s.Brand)
+			.Include(s => s.ColorN)
+			.Include(s => s.Sport)
+			.Include(s => s.Genre)
+			.ToList();
+
+				return shoes;
+			}
+			return null;
+		}
+
 		public Size? GetSizePorId(int id)
 		{
 			return context.Sizes.SingleOrDefault(s => s.SizeId == id);

@@ -335,10 +335,12 @@ namespace Shoes.Datos.Repositories
 
 		public List<SizeDetailDto>? GetSizeDetail(int shoeId)
 		{
+
 			return context.ShoeSizes.Include(ss => ss.SizeN)
 			.Where(ss => ss.ShoeId == shoeId)
 			.Select(ss => new SizeDetailDto
 			{
+				SizeId = ss.ShoeSizeId,
 				SizeN = ss.SizeN.SizeNumber,
 				Quantity = ss.QuantityInStock
 			}).ToList();
@@ -368,7 +370,7 @@ namespace Shoes.Datos.Repositories
 			var shoeSize = GetShoeSize(shoeId, sizeId);
 			if (shoeSize!=null)
 			{
-				shoeSize.QuantityInStock += 1;
+				shoeSize.QuantityInStock += unidades;
 				context.ShoeSizes.Update(shoeSize);
 			}
 			
@@ -377,6 +379,35 @@ namespace Shoes.Datos.Repositories
 		public ShoeSize GetShoeSize(int shoeId, int sizeId)
 		{
 			return context.ShoeSizes.FirstOrDefault(ss => ss.ShoeId == shoeId && ss.SizeId == sizeId);
+		}
+
+		public List<ShoeSize> GetListaShoesSizes(int shoeId)
+		{
+			return context.ShoeSizes
+			.Where(ss => ss.ShoeId == shoeId)
+			.Include(ss => ss.SizeN) 
+			.ToList();
+		}
+
+		public void EditarSs(int shoeSizeId, int stock)
+		{
+			if (shoeSizeId == null)
+			{
+				throw new ArgumentNullException(nameof(shoeSizeId));
+			}
+
+			var existingShoeSize = context.ShoeSizes
+				.FirstOrDefault(ss => ss.ShoeSizeId == shoeSizeId);
+
+			if (existingShoeSize != null)
+			{
+				existingShoeSize.QuantityInStock =stock;
+				context.SaveChanges();
+			}
+			else
+			{
+				throw new InvalidOperationException("El ShoeSize no existe.");
+			}
 		}
 	}
 }

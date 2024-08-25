@@ -88,13 +88,13 @@ namespace Shoes.Windows.Helpers
                     r.Cells[0].Value = size.SizeNumber;
 					break;
             }
-			switch (item)
-			{
-				case SizeDetailDto shoeSizesD:
-                    r.Cells[0].Value = shoeSizesD.SizeN;
-                    r.Cells[1].Value = shoeSizesD.Quantity;
-					break;
-			}
+			//switch (item)
+			//{
+			//	case SizeDetailDto shoeSizesD:
+			//		r.Cells[0].Value = shoeSizesD.SizeN;
+   //                 r.Cells[1].Value = shoeSizesD.Quantity;
+			//		break;
+			//}
 			switch (item)
 			{
 				case ShoeSize shoeSizes:

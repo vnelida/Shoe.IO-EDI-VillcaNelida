@@ -24,7 +24,7 @@ namespace Shoes.Windows.Formularios
 		private bool FilterOn = false;
 
 		private int pageCount;
-		private int pageSize = 13;
+		private int pageSize = 14;
 		private int pageNum = 0;
 		private int recordCount;
 
@@ -78,6 +78,32 @@ namespace Shoes.Windows.Formularios
 			}
 		}
 
+		private void tsbTalles_Click(object sender, EventArgs e)
+		{
+			if (dgvDatos.SelectedRows.Count == 0)
+			{
+				return;
+			}
+			var r = dgvDatos.SelectedRows[0];
+			if (r.Tag is null) return;
+			var shoesDto = (ShoeListDto)r.Tag;
+			var shoeId = shoesDto.ShoeId;
+			List<ShoeSize>? shoeSizes = servicio.GetListaShoesSizes(shoeId);
+
+			//List<Size>? sizess = servicio.GetSizePorShoes(shoesDto.ShoeId);
+			//List<SizeDetailDto>? sizes = servicio.GetSizeDetalle(shoesDto.ShoeId);
+
+			if (shoeSizes is null || shoeSizes.Count == 0)
+			{
+				MessageBox.Show("El articulo seleccionado no tiene talles disponibles.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			frmDetalleTalles frm = new frmDetalleTalles(shoesDto.ShoeId, servicio) { Text = $"Talles del articulo {shoesDto.Model}" };
+			frm.SetDatos(shoeSizes);
+			frm.ShowDialog(this);
+
+		}
 		private void tsbNuevo_Click(object sender, EventArgs e)
 		{
 			frmShoesAE frm = new frmShoesAE(serviceProvider);
@@ -211,9 +237,7 @@ namespace Shoes.Windows.Formularios
 
 		private void ActualizarListaPaginada()
 		{
-			lista = servicio
-				.GetListaPaginadaOrdenadaFiltrada(pageNum, pageSize, orden,
-				brandFiltro, colorFiltro, genreFiltro, sportFiltro);
+			lista = servicio.GetListaPaginadaOrdenadaFiltrada(pageNum, pageSize, orden, brandFiltro, colorFiltro, genreFiltro, sportFiltro);
 			MostrarDatosEnGrilla();
 		}
 
@@ -416,32 +440,14 @@ namespace Shoes.Windows.Formularios
 		{
 			FilterOn = false;
 			tsbFiltrar.Enabled = true;
+			brandFiltro = null;
+			colorFiltro = null;
+			genreFiltro = null;
+			sportFiltro = null;
 			RecargarGrilla();
 		}
 
-		private void tsbTalles_Click(object sender, EventArgs e)
-		{
-			if (dgvDatos.SelectedRows.Count == 0)
-			{
-				return;
-			}
-			var r = dgvDatos.SelectedRows[0];
-			if (r.Tag is null) return;
-			ShoeListDto shoesDto = (ShoeListDto)r.Tag;
-			//List<Size>? sizes = servicio.GetSizePorShoes(shoesDto.ShoeId);
-			List<SizeDetailDto>? sizes = servicio.GetSizeDetalle(shoesDto.ShoeId);
-
-			if (sizes is null || sizes.Count == 0)
-			{
-				MessageBox.Show("El articulo seleccionado no tiene talles disponibles.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-
-			frmDetalleTalles frm = new frmDetalleTalles() { Text = $"Talles del articulo {shoesDto.Model}" };
-			frm.SetDatos(sizes);
-			frm.ShowDialog(this);
-
-		}
+		
 
 		private void tsbNuevoTalle_Click(object sender, EventArgs e)
 		{
@@ -462,11 +468,13 @@ namespace Shoes.Windows.Formularios
 			try
 			{
 				Size? size = frm.GetSize();
+				int stock=frm.GetStock();
 				if (size is null) { return; }
 				if (!servicio.ExisteRelacion(shoe, size))
 				{
-
 					servicio.AsignarSizeAShoe(shoe, size);
+					servicio.AgregarStock(shoe.ShoeId, size.SizeId, stock); // Agrega la cantidad de stock especificada
+
 					if (shoesDto is not null)
 					{
 						shoesDto.CantidadDeTalles++;
@@ -477,13 +485,14 @@ namespace Shoes.Windows.Formularios
 				}
 				else
 				{
-					var respuesta = MessageBox.Show("El talle ya se encuentra asignado al articulo seleccionado. \n ¿Desea agregar al stock una unidad?", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-					if (respuesta == DialogResult.No) { return; }
-					else
-					{
-						servicio.AgregarStock(shoe.ShoeId, size.SizeId, 1);
-						MessageBox.Show("Stock actualizado", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					}
+					var respuesta = MessageBox.Show("El talle ya se encuentra asignado al articulo seleccionado. \n ", "Atencion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+					//if (respuesta == DialogResult.No) { return; }
+					//else
+					//{
+					//	var unidades = frm.GetStock();
+					//	servicio.AgregarStock(shoe.ShoeId, size.SizeId, unidades);
+					//	MessageBox.Show("Stock actualizado", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					//}
 										
 				}
 
@@ -500,9 +509,5 @@ namespace Shoes.Windows.Formularios
 
 		}
 
-		private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

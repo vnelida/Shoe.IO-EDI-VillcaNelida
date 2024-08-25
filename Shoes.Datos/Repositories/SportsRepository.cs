@@ -103,7 +103,7 @@ namespace Shoes.Datos.Repositories
 			return query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 		}
 
-		public List<Shoe>? GetPlanta(Sport sport)
+		public List<Shoe>? GetShoe(Sport sport)
 		{
 			if (sport != null)
 			{

@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
 			panelGrilla = new Panel();
 			dgvDatos = new DataGridView();
 			colModel = new DataGridViewTextBoxColumn();
@@ -44,8 +44,6 @@
 			tsbNuevo = new ToolStripButton();
 			tsbBorrar = new ToolStripButton();
 			tsbEditar = new ToolStripButton();
-			toolStripSeparator1 = new ToolStripSeparator();
-			toolStripSeparator2 = new ToolStripSeparator();
 			toolStripSeparator3 = new ToolStripSeparator();
 			tsbCerrar = new ToolStripButton();
 			tsbTalles = new ToolStripButton();
@@ -74,6 +72,7 @@
 			btnUltimo = new Button();
 			btnAnterior = new Button();
 			btnPrimero = new Button();
+			button1 = new Button();
 			panelGrilla.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dgvDatos).BeginInit();
 			panelToolBar.SuspendLayout();
@@ -95,8 +94,8 @@
 			// 
 			dgvDatos.AllowUserToAddRows = false;
 			dgvDatos.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle1.BackColor = Color.White;
-			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.BackColor = Color.White;
+			dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
 			dgvDatos.BackgroundColor = SystemColors.ButtonHighlight;
 			dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colModel, colDescripcion, colPrice, colColor, colGenre, colBrand, colSport, colTalles });
@@ -191,7 +190,7 @@
 			// 
 			toolStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			toolStrip1.ImageScalingSize = new Size(32, 32);
-			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, toolStripSeparator2, toolStripSeparator3, tsbCerrar, tsbTalles, tsbNuevoTalle, tsbActualizar, tsbOrden, tsbFiltrar });
+			toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator3, tsbCerrar, tsbTalles, tsbNuevoTalle, tsbActualizar, tsbOrden, tsbFiltrar });
 			toolStrip1.Location = new Point(0, 0);
 			toolStrip1.Name = "toolStrip1";
 			toolStrip1.Padding = new Padding(0, 0, 4, 0);
@@ -232,17 +231,6 @@
 			tsbEditar.Text = "Editar";
 			tsbEditar.TextImageRelation = TextImageRelation.ImageAboveText;
 			tsbEditar.Click += tsbEditar_Click;
-			// 
-			// toolStripSeparator1
-			// 
-			toolStripSeparator1.Name = "toolStripSeparator1";
-			toolStripSeparator1.Size = new Size(6, 119);
-			// 
-			// toolStripSeparator2
-			// 
-			toolStripSeparator2.Name = "toolStripSeparator2";
-			toolStripSeparator2.Size = new Size(6, 119);
-			toolStripSeparator2.Visible = false;
 			// 
 			// toolStripSeparator3
 			// 
@@ -403,6 +391,7 @@
 			// 
 			// panelNavegacion
 			// 
+			panelNavegacion.Controls.Add(button1);
 			panelNavegacion.Controls.Add(btnSiguiente);
 			panelNavegacion.Controls.Add(txtCantidadRegistros);
 			panelNavegacion.Controls.Add(cboPaginas);
@@ -502,6 +491,15 @@
 			btnPrimero.UseVisualStyleBackColor = true;
 			btnPrimero.Click += btnPrimero_Click;
 			// 
+			// button1
+			// 
+			button1.Location = new Point(1585, 52);
+			button1.Name = "button1";
+			button1.Size = new Size(0, 0);
+			button1.TabIndex = 5;
+			button1.Text = "button1";
+			button1.UseVisualStyleBackColor = true;
+			// 
 			// frmShoes
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
@@ -544,7 +542,6 @@
 		private ToolStripButton tsbNuevo;
 		private ToolStripButton tsbBorrar;
 		private ToolStripButton tsbEditar;
-		private ToolStripSeparator toolStripSeparator1;
 		private ToolStripDropDownButton tsbFiltrar;
 		private ToolStripMenuItem porMarca;
 		private ToolStripComboBox tscMarca;
@@ -560,7 +557,6 @@
 		private ToolStripMenuItem menorPrecioToolStripMenuItem;
 		private ToolStripMenuItem mayorPrecioToolStripMenuItem;
 		private ToolStripButton tsbActualizar;
-		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripSeparator toolStripSeparator3;
 		private ToolStripButton tsbTalles;
 		private ToolStripButton tsbNuevoTalle;
@@ -573,5 +569,6 @@
 		private DataGridViewTextBoxColumn colBrand;
 		private DataGridViewTextBoxColumn colSport;
 		private DataGridViewTextBoxColumn colTalles;
+		private Button button1;
 	}
 }

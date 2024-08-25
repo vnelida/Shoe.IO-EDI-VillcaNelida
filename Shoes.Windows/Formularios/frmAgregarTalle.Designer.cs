@@ -34,12 +34,15 @@
 			label1 = new Label();
 			cboTalles = new ComboBox();
 			errorProvider1 = new ErrorProvider(components);
+			label2 = new Label();
+			stockUpDown = new NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+			((System.ComponentModel.ISupportInitialize)stockUpDown).BeginInit();
 			SuspendLayout();
 			// 
 			// btnCancel
 			// 
-			btnCancel.Location = new Point(419, 257);
+			btnCancel.Location = new Point(415, 303);
 			btnCancel.Name = "btnCancel";
 			btnCancel.Size = new Size(184, 73);
 			btnCancel.TabIndex = 15;
@@ -49,7 +52,7 @@
 			// 
 			// btnOk
 			// 
-			btnOk.Location = new Point(173, 257);
+			btnOk.Location = new Point(177, 303);
 			btnOk.Name = "btnOk";
 			btnOk.Size = new Size(165, 73);
 			btnOk.TabIndex = 14;
@@ -79,11 +82,30 @@
 			// 
 			errorProvider1.ContainerControl = this;
 			// 
+			// label2
+			// 
+			label2.AutoSize = true;
+			label2.Location = new Point(149, 186);
+			label2.Name = "label2";
+			label2.Size = new Size(109, 32);
+			label2.TabIndex = 18;
+			label2.Text = "Cantidad";
+			// 
+			// stockUpDown
+			// 
+			stockUpDown.Location = new Point(295, 184);
+			stockUpDown.Name = "stockUpDown";
+			stockUpDown.Size = new Size(324, 39);
+			stockUpDown.TabIndex = 19;
+			stockUpDown.ValueChanged += stockUpDown_ValueChanged;
+			// 
 			// frmAgregarTalle
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(stockUpDown);
+			Controls.Add(label2);
 			Controls.Add(cboTalles);
 			Controls.Add(btnCancel);
 			Controls.Add(btnOk);
@@ -93,6 +115,7 @@
 			Text = "frmAgregarTalle";
 			Load += frmAgregarTalle_Load;
 			((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+			((System.ComponentModel.ISupportInitialize)stockUpDown).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -103,5 +126,7 @@
 		private Label label1;
 		private ComboBox cboTalles;
 		private ErrorProvider errorProvider1;
+		private NumericUpDown stockUpDown;
+		private Label label2;
 	}
 }

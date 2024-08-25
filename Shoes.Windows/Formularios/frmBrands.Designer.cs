@@ -68,7 +68,7 @@
 			panelToolBar.Location = new Point(0, 0);
 			panelToolBar.Margin = new Padding(6);
 			panelToolBar.Name = "panelToolBar";
-			panelToolBar.Size = new Size(1474, 126);
+			panelToolBar.Size = new Size(1610, 126);
 			panelToolBar.TabIndex = 13;
 			// 
 			// toolStrip1
@@ -81,7 +81,7 @@
 			toolStrip1.Name = "toolStrip1";
 			toolStrip1.Padding = new Padding(0, 0, 4, 0);
 			toolStrip1.RightToLeft = RightToLeft.No;
-			toolStrip1.Size = new Size(1474, 119);
+			toolStrip1.Size = new Size(1610, 119);
 			toolStrip1.TabIndex = 2;
 			toolStrip1.Text = "toolStrip1";
 			// 
@@ -194,10 +194,10 @@
 			panelNavegacion.Controls.Add(btnAnterior);
 			panelNavegacion.Controls.Add(btnPrimero);
 			panelNavegacion.Dock = DockStyle.Bottom;
-			panelNavegacion.Location = new Point(0, 705);
+			panelNavegacion.Location = new Point(0, 762);
 			panelNavegacion.Margin = new Padding(6);
 			panelNavegacion.Name = "panelNavegacion";
-			panelNavegacion.Size = new Size(1474, 124);
+			panelNavegacion.Size = new Size(1610, 124);
 			panelNavegacion.TabIndex = 12;
 			panelNavegacion.Paint += panelNavegacion_Paint;
 			// 
@@ -312,7 +312,7 @@
 			dgvDatos.RowHeadersVisible = false;
 			dgvDatos.RowHeadersWidth = 82;
 			dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgvDatos.Size = new Size(1495, 602);
+			dgvDatos.Size = new Size(1610, 636);
 			dgvDatos.TabIndex = 0;
 			dgvDatos.CellContentClick += dgvDatos_CellContentClick;
 			// 
@@ -328,17 +328,18 @@
 			// 
 			panelGrilla.AutoSize = true;
 			panelGrilla.Controls.Add(dgvDatos);
-			panelGrilla.Location = new Point(0, 125);
+			panelGrilla.Dock = DockStyle.Fill;
+			panelGrilla.Location = new Point(0, 126);
 			panelGrilla.Margin = new Padding(6);
 			panelGrilla.Name = "panelGrilla";
-			panelGrilla.Size = new Size(1495, 602);
+			panelGrilla.Size = new Size(1610, 636);
 			panelGrilla.TabIndex = 14;
 			// 
 			// frmBrands
 			// 
 			AutoScaleDimensions = new SizeF(13F, 32F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1474, 829);
+			ClientSize = new Size(1610, 886);
 			Controls.Add(panelGrilla);
 			Controls.Add(panelToolBar);
 			Controls.Add(panelNavegacion);
